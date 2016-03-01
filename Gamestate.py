@@ -3,18 +3,18 @@ class Gamestate(object):
 		self.source = "Pickles"
 		self.target = "Jesus"
 		self.path = []
-		self.currentPage = self.source
 		self.win = False
 
-	def updateCount(self):
-		# Do stuff here
+	def addNewPageToPath(self):
+		# Add a page to the path
 		return null
 
 	def isWin(self):
-		# Do stuff here
+		# Check if this page is a win
 		return False
 
-	def setCurrentPage(self):
+	def getCurrentPage(self):
+		# Return last page of the path
 		return ""
 
 	def getNumClicks(self):
