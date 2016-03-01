@@ -1,8 +1,8 @@
 class Gamestate(object):
 	def __init__(self):
-		self.numClicks = 0
 		self.source = "Pickles"
 		self.target = "Jesus"
+		self.path = []
 		self.currentPage = self.source
 		self.win = False
 
@@ -18,7 +18,7 @@ class Gamestate(object):
 		return ""
 
 	def getNumClicks(self):
-		return self.numClicks
+		return len(self.path)
 
 	def getTarget(self):
 		return self.target
