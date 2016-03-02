@@ -1,22 +1,20 @@
 from WikiArea import *
 
 class GameState(object):
-	def __init__(self, source = 'Pickles', target = 'Jesus'):
+	def __init__(self, source = 'Picked Cucumber', target = 'Jesus'):
 		self.source = source
 		self.target = target
 		self.currentArea = WikiArea(source)
 		self.path = [source]
-		self.win = False
-
-	def addNewPageToPath(self):
-		# Add a page to the path
-		return null
 
 	def isWin(self):
 		# Check if this page is a win
-		if getCurrentPage == self.target:
+		if self.path[-1] == self.target:
 			return True
 		return False
+
+	def getPath(self):
+		return self.path
 
 	def getCurrentPage(self):
 		# Return last page of the path
@@ -28,9 +26,6 @@ class GameState(object):
 	def getTarget(self):
 		return self.target
 
-	def gameIsWon(self):
-		return self.win
-
 	def winGame(self):
 		self.win = True
 
@@ -39,3 +34,6 @@ class GameState(object):
 		if destination in possibleDestinations:
 			self.path.append(destination)
 			self.currentArea = WikiArea(destination)
+			return True
+		else:
+			return False
