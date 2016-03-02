@@ -1,5 +1,5 @@
 class Gamestate(object):
-	def __init__(self, source = "Pickles", target = "Jesus"):
+	def __init__(self, source = 'Pickles', target = 'Jesus'):
 		self.source = source
 		self.target = target
 		self.path = [source]
