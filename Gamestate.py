@@ -9,11 +9,12 @@ class Gamestate(object):
 from WikiArea import *
 
 class GameState(object):
-	def __init__(self, source = 'Pickles', target = 'Jesus'):
+	def __init__(self, source = 'Picked Cucumber', target = 'Jesus'):
 		self.source = source
 		self.target = target
 		self.currentArea = WikiArea(source)
 		self.path = [source]
+<<<<<<< HEAD
 >>>>>>> eedc6093834c052ad096358cfa6c1a62b20a3044
 		self.win = False
 
@@ -21,12 +22,17 @@ class GameState(object):
 		newPage = Page(THEURL) #need to fix this part
 		self.path.append(newPage)
 		return null
+=======
+>>>>>>> 450226eca46ea9a5626b101a1b056533023bab1a
 
 	def isWin(self):
 		# Check if this page is a win
-		if getCurrentPage == self.target:
+		if self.path[-1] == self.target:
 			return True
 		return False
+
+	def getPath(self):
+		return self.path
 
 	def getCurrentPage(self):
 <<<<<<< HEAD
@@ -41,9 +47,6 @@ class GameState(object):
 	def getTarget(self):
 		return self.target
 
-	def gameIsWon(self):
-		return self.win
-
 	def winGame(self):
 		self.win = True
 
@@ -52,3 +55,6 @@ class GameState(object):
 		if destination in possibleDestinations:
 			self.path.append(destination)
 			self.currentArea = WikiArea(destination)
+			return True
+		else:
+			return False
