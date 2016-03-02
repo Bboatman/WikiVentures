@@ -1,3 +1,4 @@
+from Page import *
 class Gamestate(object):
 	def __init__(self):
 		self.source = "Pickles"
@@ -5,8 +6,9 @@ class Gamestate(object):
 		self.path = []
 		self.win = False
 
-	def addNewPageToPath(self):
-		# Add a page to the path
+	def addNewPageToPath(self, page):
+		newPage = Page(THEURL) #need to fix this part
+		self.path.append(newPage)
 		return null
 
 	def isWin(self):
@@ -14,8 +16,7 @@ class Gamestate(object):
 		return False
 
 	def getCurrentPage(self):
-		# Return last page of the path
-		return ""
+		return self.path[-1]
 
 	def getNumClicks(self):
 		return len(self.path)
