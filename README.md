@@ -9,9 +9,8 @@ https://docs.google.com/a/macalester.edu/document/d/1ffYBqFHiXW-TGoFv0WGkYDp_T80
 * All strings will be declared using single quotes so we don't have to escape our double quotes 
 
 ## Class Breakdown
-#### Page
-This class represents a single wikipedia page. Waab is working on this currently and is trying to figure out a way to
-incorporate the parser into the page class so that each initialized page does its own link scraping
+#### WikiArea
+This class represents a single wikipedia page using the Wikipedia api. It will serve as all of the information needed for one area or level in the actual gamified part of the program. It has all of the information that we had on the previous page class that it replaced plus a ton more for future features we might add.
 
 #### Gamestate
 This is the information about game data for one instance of the game, it keeps track of the following
