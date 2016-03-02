@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-from Page import *
-class Gamestate(object):
-	def __init__(self):
-		self.source = "Pickles"
-		self.target = "Jesus"
-		self.path = []
-=======
+
 from WikiArea import *
 
 class GameState(object):
@@ -14,7 +7,6 @@ class GameState(object):
 		self.target = target
 		self.currentArea = WikiArea(source)
 		self.path = [source]
->>>>>>> eedc6093834c052ad096358cfa6c1a62b20a3044
 		self.win = False
 
 	def addNewPageToPath(self, page):
@@ -29,10 +21,7 @@ class GameState(object):
 		return False
 
 	def getCurrentPage(self):
-<<<<<<< HEAD
-=======
 		# Return last page of the path
->>>>>>> eedc6093834c052ad096358cfa6c1a62b20a3044
 		return self.path[-1]
 
 	def getNumClicks(self):
