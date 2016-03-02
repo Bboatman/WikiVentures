@@ -11,7 +11,7 @@ class Gamestate(object):
 
 	def isWin(self):
 		# Check if this page is a win
-		if self.path[-1] == self.target:
+		if getCurrentPage == self.target:
 			return True
 		return False
 
