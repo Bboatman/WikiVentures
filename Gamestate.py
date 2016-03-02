@@ -1,7 +1,10 @@
+from WikiArea import *
+
 class Gamestate(object):
 	def __init__(self, source = 'Pickles', target = 'Jesus'):
 		self.source = source
 		self.target = target
+		self.currentArea = WikiArea(source)
 		self.path = [source]
 		self.win = False
 
@@ -30,3 +33,9 @@ class Gamestate(object):
 
 	def winGame(self):
 		self.win = True
+
+	def addToPath(self, destination):
+		possibleDestinations = self.currentArea.getChildren()
+		if destination in possibleDestinations:
+			self.path.append(destination)
+			self.currentArea = WikiArea(destination)
