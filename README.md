@@ -19,6 +19,7 @@ This is the information about game data for one instance of the game, it keeps t
 * The Goal Page
 * Every link the user clicks while traversing from start to goal
 * Whether or not the game has been won
+
 The class is currently set up to initialize with a default start of 'Pickles' and a default end of 'Jesus'
 
 #### Interface

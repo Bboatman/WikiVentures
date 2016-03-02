@@ -3,11 +3,8 @@ import unittest
 sys.path.append('./..') #Add the Wikiventures parent folder to the path
 from Page import *
 
-#test = Page("sample")
-#print(test.getUrl())
-#print(test.getChildren())
-
 # Documentation on testing!
+# https://docs.python.org/3/library/unittest.html
 
 class TestPageMethods(unittest.TestCase):
 	def setUp(self):
