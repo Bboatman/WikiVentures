@@ -1,9 +1,7 @@
 # WikiVentures
-Software Dev group
+Software Dev Project
 
-much of our documentation is avaliable here:
-
-https://docs.google.com/a/macalester.edu/document/d/1ffYBqFHiXW-TGoFv0WGkYDp_T80qaOYokwHChSSXIYg/edit?usp=sharing
+Much of the planning and outlining documentation is available [here](https://docs.google.com/a/macalester.edu/document/d/1ffYBqFHiXW-TGoFv0WGkYDp_T80qaOYokwHChSSXIYg/edit?usp=sharing)
 ## Style Convention Agreements
 * Tests will be declared in the tests folder with the prefix 'test_' followed by what you are testing
 * All strings will be declared using single quotes so we don't have to escape our double quotes 
