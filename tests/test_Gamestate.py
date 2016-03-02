@@ -1,12 +1,11 @@
 import sys
 import unittest
 sys.path.append('./..')
-from Gamestate import *
+from GameState import *
 
-class TestGamestateMethod(unittest.TestCase):
-	def __init__(self, arg='-v'):
-		super(TestGamestateMethod, self).__init__()
-		self.arg = arg
+class TestGameStateMethod(unittest.TestCase):
+	def setUp(self):
+		this.gameState = GameState()
 
 if __name__=='__main__':
 	unittest.main()

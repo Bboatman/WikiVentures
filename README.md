@@ -12,7 +12,7 @@ https://docs.google.com/a/macalester.edu/document/d/1ffYBqFHiXW-TGoFv0WGkYDp_T80
 #### WikiArea
 This class represents a single wikipedia page using the Wikipedia api. It will serve as all of the information needed for one area or level in the actual gamified part of the program. It has all of the information that we had on the previous page class that it replaced plus a ton more for future features we might add.
 
-#### Gamestate
+#### GameState
 This is the information about game data for one instance of the game, it keeps track of the following
 * The Start Page
 * The Goal Page

@@ -1,6 +1,6 @@
 from WikiArea import *
 
-class Gamestate(object):
+class GameState(object):
 	def __init__(self, source = 'Pickles', target = 'Jesus'):
 		self.source = source
 		self.target = target
