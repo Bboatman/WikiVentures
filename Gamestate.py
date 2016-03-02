@@ -1,8 +1,8 @@
 class Gamestate(object):
-	def __init__(self):
-		self.source = "Pickles"
-		self.target = "Jesus"
-		self.path = []
+	def __init__(self, source = "Pickles", target = "Jesus"):
+		self.source = source
+		self.target = target
+		self.path = [source]
 		self.win = False
 
 	def addNewPageToPath(self):
@@ -15,10 +15,16 @@ class Gamestate(object):
 
 	def getCurrentPage(self):
 		# Return last page of the path
-		return ""
+		return self.path[-1]
 
 	def getNumClicks(self):
 		return len(self.path)
 
 	def getTarget(self):
 		return self.target
+
+	def gameIsWon(self):
+		return self.win
+
+	def winGame(self):
+		self.win = True
