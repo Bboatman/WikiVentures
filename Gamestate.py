@@ -1,12 +1,12 @@
 from WikiArea import *
 
-class GameState(object):
+class Gamestate(object):
 	def __init__(self, source = 'Picked Cucumber', target = 'Jesus'):
 		self.source = source
 		self.target = target
 		self.currentArea = WikiArea(source)
 		self.path = [source]
-		
+
 	def isWin(self):
 		# Check if this page is a win
 		if self.path[-1] == self.target:
