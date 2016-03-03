@@ -1,4 +1,4 @@
-from GameState import *
+from Gamestate import *
 
 GREET_STRING = 'Welcome to Wikiventures.'
 def main():
