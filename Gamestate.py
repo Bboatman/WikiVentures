@@ -1,19 +1,13 @@
-<<<<<<< HEAD
-from Page import *
-class Gamestate(object):
-	def __init__(self):
-		self.source = "Pickles"
-		self.target = "Jesus"
-		self.path = []
-=======
+
 from WikiArea import *
 
-class GameState(object):
+class Gamestate(object):
 	def __init__(self, source = 'Picked Cucumber', target = 'Jesus'):
 		self.source = source
 		self.target = target
 		self.currentArea = WikiArea(source)
 		self.path = [source]
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> eedc6093834c052ad096358cfa6c1a62b20a3044
 		self.win = False
@@ -24,6 +18,8 @@ class GameState(object):
 		return null
 =======
 >>>>>>> 450226eca46ea9a5626b101a1b056533023bab1a
+=======
+>>>>>>> 013e724a941ccad5dc97bc8f2b1789580e240d78
 
 	def isWin(self):
 		# Check if this page is a win
@@ -35,10 +31,7 @@ class GameState(object):
 		return self.path
 
 	def getCurrentPage(self):
-<<<<<<< HEAD
-=======
 		# Return last page of the path
->>>>>>> eedc6093834c052ad096358cfa6c1a62b20a3044
 		return self.path[-1]
 
 	def getNumClicks(self):
