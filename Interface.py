@@ -26,7 +26,7 @@ def main():
 				print(title)
 
 		if gamestate.isWin():
-			print('You win in ' + gamestate.getNumClicks() + ' clicks')
+			print('You win in ' + str(gamestate.getNumClicks()) + ' clicks')
 			break;
 
 
