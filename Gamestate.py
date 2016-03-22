@@ -6,23 +6,7 @@ class Gamestate(object):
 		self.target = target
 		self.currentArea = WikiArea(source)
 		self.path = [source]
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> eedc6093834c052ad096358cfa6c1a62b20a3044
-		self.win = False
-
-	def addNewPageToPath(self, page):
-		newPage = Page(THEURL) #need to fix this part
-		self.path.append(newPage)
-		return null
-=======
->>>>>>> 450226eca46ea9a5626b101a1b056533023bab1a
-=======
->>>>>>> 013e724a941ccad5dc97bc8f2b1789580e240d78
-=======
 		self.debugState = debugState
->>>>>>> 1fbbcc4f7d223891bbd1b8c73afcd628d8d45c65
 
 	def isWin(self):
 		# Check if this page is a win
