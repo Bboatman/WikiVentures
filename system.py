@@ -6,8 +6,7 @@ class System():
 	def __init__(self, title):
 		self.page = page(title)
 		self.star = Body('./assets/big_planet.png', title)
-		self.star.x = Window.width/2
-		self.star.y = Window.height/2
+		self.star.setPos(Window.height/2, Window.width/2)
 		self.planets = []
 		for child_title in self.page.links:
 			self.planets.append(Body('./assets/planet.png', child_title))

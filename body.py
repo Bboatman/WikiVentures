@@ -21,4 +21,10 @@ class Body(WidgetRenderer):
 		self.label.x = self.x
 		self.label.y = self.y
 
+	def setPos(self, xpos, ypos):
+		self.x = xpos
+		self.y = ypos
+		self.label.x = self.x
+		self.label.y = self.y
+
 

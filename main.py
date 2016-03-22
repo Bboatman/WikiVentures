@@ -19,10 +19,6 @@ class Game(Widget):
     #this is the main widget that contains the game. 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        l = Label(text='WikiVentures') #give the game a title
-        l.x = Window.width/2 - l.width/2
-        l.y = Window.height*0.8
-        self.add_widget(l) #add the label to the screen
 
         self.system = System('Brian C. Rosenberg')
         self.add_widget(self.system.star)
