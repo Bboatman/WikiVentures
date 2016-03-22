@@ -1,18 +1,18 @@
-import math
-
+from wikipedia import page
 from body import *
 from kivy.core.window import Window
 
 class System():
-	def __init__(self):
-		self.star = Body('./assets/big_planet.png')
+	def __init__(self, title):
+		self.page = page(title)
+		self.star = Body('./assets/big_planet.png', title)
 		self.star.x = Window.width/2
 		self.star.y = Window.height/2
-		self.planets = [Body('./assets/planet.png')]
+		self.planets = []
+		for child_title in self.page.links:
+			self.planets.append(Body('./assets/planet.png', child_title))
 
 	def update(self, dt):
 		for planet in self.planets:
-			planet.theta = planet.theta + planet.speed * dt
-			planet.x = math.cos(math.radians(planet.theta)) * planet.magnitude + self.star.x
-			planet.y = math.sin(math.radians(planet.theta)) * planet.magnitude + self.star.y
+			planet.move((self.star.x, self.star.y), dt)
 

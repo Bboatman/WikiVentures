@@ -24,7 +24,7 @@ class Game(Widget):
         l.y = Window.height*0.8
         self.add_widget(l) #add the label to the screen
 
-        self.system = System()
+        self.system = System('Brian C. Rosenberg')
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
