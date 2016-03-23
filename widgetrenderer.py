@@ -16,7 +16,7 @@ class WidgetRenderer(Widget):
 	#;You can use **kwargs to let your functions take an arbitrary number of keyword arguments
 	#kwargs ; keyword arguments
     def __init__(self, imageStr, **kwargs): 
-        super().__init__(**kwargs) #this is part of the **kwargs notation
+        super(WidgetRenderer, self).__init__(**kwargs) #this is part of the **kwargs notation
 		#if you haven't seen with before, here's a link <a href="http://effbot.org/zone/python-with-statement.html">http://effbot.org/zone/python-with-statement.html</a>     
         with self.canvas: 
 			#setup a default size for the object
