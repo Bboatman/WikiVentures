@@ -8,7 +8,7 @@ from kivy.uix.label import Label
 
 class Body(WidgetRenderer):
 	def __init__(self, imgStr, title, **kwargs):
-		super().__init__(imgStr, **kwargs)
+		super(Body, self).__init__(imgStr, **kwargs)
 		self.theta = randrange(0, 360)
 		self.magnitude = randrange(60, 600, 20)
 		self.speed = randrange(20, 70)

@@ -1,6 +1,6 @@
 import kivy
 kivy.require('1.7.2')
- 
+
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
@@ -18,7 +18,7 @@ Window.clearcolor = (0,0,0,1.)
 class Game(Widget):
     #this is the main widget that contains the game. 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super(Game, self).__init__(**kwargs)
 
         self.system = System('Brian C. Rosenberg')
         self.add_widget(self.system.star)
@@ -36,7 +36,6 @@ class ClientApp(App):
         #this is where the root widget goes
         #should be a canvas
         parent = Widget() #this is an empty holder for buttons, etc
- 
         app = Game()        
         #Start the game clock (runs update function once every (1/60) seconds
         Clock.schedule_interval(app.update, 1.0/60.0) 
