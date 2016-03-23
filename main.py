@@ -29,6 +29,7 @@ class Game(Widget):
         #This update function is the main update function for the game
         #All of the game logic has its origin here
         self.system.update(dt)
+        self.system.centerSystem()
 
         
 class ClientApp(App):
