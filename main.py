@@ -11,12 +11,12 @@ from system import *
 
 from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
-#Graphics fix
-#this fixes drawing issues on some phones
-Window.clearcolor = (0,0,0,1.) 
+Window.clearcolor = (0,0,0,1.) #this fixes drawing issues on some phones
 
 class Game(Widget):
-    #this is the main widget that contains the game. 
+    '''
+    The main widget class that contains the game, the game loop and runs everything
+    '''
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
 
@@ -26,16 +26,20 @@ class Game(Widget):
             self.add_widget(planet)
  
     def update(self,dt):
-        #This update function is the main update function for the game
-        #All of the game logic has its origin here
+        '''
+        This update function is the main update function for the game
+        All of the game logic has its origin here
+        dt - The change in time between updates of the game logic
+        '''
         self.system.update(dt)
         self.system.centerSystem()
 
         
 class ClientApp(App):
+    ''' 
+    The root widget canvas upon which the game is drawn
+    '''
     def build(self):
-        #this is where the root widget goes
-        #should be a canvas
         parent = Widget() #this is an empty holder for buttons, etc
         app = Game()        
         #Start the game clock (runs update function once every (1/60) seconds
