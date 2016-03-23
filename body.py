@@ -25,10 +25,8 @@ class Body(WidgetRenderer):
 		starPos - (x,y) tuple of the center point of the star
 		'''
 		self.theta = self.theta + self.speed * dt
-		self.x = math.cos(math.radians(self.theta)) * self.magnitude + starPos[0]
-		self.y = math.sin(math.radians(self.theta)) * self.magnitude + starPos[1]
-		self.label.x = self.x
-		self.label.y = self.y
+		self.setPos(math.cos(math.radians(self.theta)) * self.magnitude + starPos[0], math.sin(math.radians(self.theta)) * self.magnitude + starPos[1])
+
 
 	def setPos(self, xpos, ypos):
 		self.x = xpos
