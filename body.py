@@ -19,7 +19,7 @@ class Body(Widget):
 
 	def __init__(self, imgStr, title, **kwargs):
 		super(Body, self).__init__( **kwargs)
-		self.theta = randrange(0, 360)
+		self.theta = randrange(160, 360)
 		self.magnitude = randrange(60, 600, 20)
 		self.speed = randrange(20, 70)
 		self.label = Label(text = title)
