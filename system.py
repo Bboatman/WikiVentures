@@ -16,5 +16,5 @@ class System():
 			planet.orbit((self.star.x, self.star.y), dt)
 
 	def centerSystem(self):
-		self.star.setPos(Window.width/2, Window.height/2)
+		self.star.setPos(Window.width/2-128, Window.height/2-128)
 
