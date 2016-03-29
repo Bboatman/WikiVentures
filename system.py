@@ -13,7 +13,7 @@ class System():
 
 	def update(self, dt):
 		for planet in self.planets:
-			planet.orbit((self.star.x + 128, self.star.y + 128), dt)
+			planet.orbit((self.star.x + 120, self.star.y + 120), dt)
 
 	def centerSystem(self):
 		self.star.setPos(Window.width/2-128, Window.height/2-128)
