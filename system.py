@@ -15,7 +15,14 @@ class System(SubSystem):
 					links.append(link)
 			if len(links) > 0:
 				self.sections[letter] = links
-		super(System, self).__init__(sorted(list(self.sections.keys())), title)
+		planet_names = sorted(list(self.sections.keys()))
+		i = 0
+		for key in planet_names:
+			planet_names[i] = key + ' : ' + str(len(self.sections[key]))
+			i += 1
+			print(key)
+		print(planet_names)
+		super(System, self).__init__(planet_names, title)
 
 	def update(self, dt):
 		for planet in self.planets:
