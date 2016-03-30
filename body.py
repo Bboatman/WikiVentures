@@ -17,10 +17,11 @@ class Body(Widget):
 
 	source = StringProperty("")
 
-	def __init__(self, imgStr, title, **kwargs):
+	def __init__(self, imgStr, title, order, **kwargs):
 		super(Body, self).__init__( **kwargs)
 		self.theta = randrange(0, 360)
-		self.magnitude = randrange(160, 600, 20)
+		self.magnitude = order * 50 + 100
+		print(str(order) + ' ' +  str(self.magnitude))
 		self.speed = randrange(20, 70)
 		
 		self.label = Label(text = title)
@@ -45,5 +46,6 @@ class Body(Widget):
 		self.y = ypos
 		self.label.x = self.x
 		self.label.y = self.y
+
 
 
