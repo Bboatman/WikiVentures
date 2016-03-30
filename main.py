@@ -24,6 +24,7 @@ class Game(Widget):
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
+        self.player = Spaceship()
  
     def update(self,dt):
         '''

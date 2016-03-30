@@ -1,6 +1,3 @@
-import math
-
-from random import randrange
 from widgetrenderer import *
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
@@ -15,12 +12,17 @@ class Spaceship(Widget):
 
 	source = StringProperty("")
 
-	def __init__(self, imgStr, **kwargs):
+	def __init__(self, **kwargs):
 		super(Spaceship, self).__init__( **kwargs)
-		self.source = imgStr
-		self.size = 128 
+		self.size = 128
 		self.x = self.center_x
 		self.y = self.center_y
+
+	def move(self):
+		return null
+
+	def rotate(self):
+		return null
 
 	def setPos(self, xpos, ypos):
 		self.x = xpos

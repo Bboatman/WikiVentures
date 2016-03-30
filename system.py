@@ -11,8 +11,7 @@ class System():
 		self.planets = []
 		for child_title in self.page.links:
 			self.planets.append(Body('./assets/planet.png', child_title))
-		self.player = Spaceship('./assets/spaceship.png')
-
+		
 	def update(self, dt):
 		for planet in self.planets:
 			planet.orbit((self.star.x + 120, self.star.y + 120), dt)
