@@ -22,8 +22,10 @@ class Body(Widget):
 		self.theta = randrange(0, 360)
 		self.magnitude = randrange(160, 600, 20)
 		self.speed = randrange(20, 70)
+		
 		self.label = Label(text = title)
 		self.add_widget(self.label)
+
 		self.source = imgStr
 		self.size = 50 if imgStr == './assets/planet.png' else 256
 		self.x = self.center_x
