@@ -1,4 +1,3 @@
-
 from WikiArea import *
 
 class Gamestate(object):
