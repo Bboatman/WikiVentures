@@ -1,7 +1,7 @@
 from body import *
 from kivy.core.window import Window
 
-class SubSystem():
+class SubSystem(object):
 	def __init__(self, planet_names, title):
 		self.title = title
 		self.star = Body('./assets/big_planet.png', title, 0)
