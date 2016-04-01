@@ -1,5 +1,5 @@
 import kivy
-kivy.require('1.7.2')
+kivy.require('1.9.1')
 
 from kivy.app import App
 from kivy.uix.widget import Widget
@@ -24,6 +24,7 @@ class Game(Widget):
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
+        self.player = Spaceship()
  
     def update(self,dt):
         '''
@@ -38,6 +39,7 @@ class Game(Widget):
 class ClientApp(App):
     ''' 
     The root widget canvas upon which the game is drawn
+    Because this named ClientApp, the kv file needs to be client.kv
     '''
     def build(self):
         parent = Widget() #this is an empty holder for buttons, etc

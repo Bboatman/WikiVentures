@@ -22,3 +22,7 @@ The class is currently set up to initialize with a default start of 'Pickles' an
 #### Interface
 This class should handle the display and interaction portion of the game. Currently just a command line client,
 but eventually it should handle gui things as well
+
+
+
+#### Instructions

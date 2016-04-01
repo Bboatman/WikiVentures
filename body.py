@@ -6,18 +6,30 @@ from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
 from kivy.uix.label import Label
 
-class Body(WidgetRenderer):
+class Body(Widget):
 	''' 
 	A 'celestial body', each planet or star in the solar system is one of these
 	It represents a link on a wikipedia article
 	'''
-	def __init__(self, imgStr, title, **kwargs):
-		super(Body, self).__init__(imgStr, **kwargs)
-		self.theta = NumericProperty(randrange(0, 360))
-		self.magnitude = NumericProperty(randrange(60, 600, 20))
-		self.speed = NumericProperty(randrange(20, 70))
+	size = NumericProperty(0)
+	x = NumericProperty(0)
+	y = NumericProperty(0)
+
+	source = StringProperty("")
+
+	def __init__(self, imgStr, title, order, **kwargs):
+		super(Body, self).__init__( **kwargs)
+		self.theta = randrange(0, 360)
+		self.magnitude = order * 50 + 100
+		self.speed = randrange(20, 70)
+		
 		self.label = Label(text = title)
 		self.add_widget(self.label)
+
+		self.source = imgStr
+		self.size = 50 if imgStr == './assets/planet.png' else 256
+		self.x = self.center_x
+		self.y = self.center_y
 
 	def orbit(self, starPos, dt):
 		'''
@@ -35,5 +47,7 @@ class Body(WidgetRenderer):
 		self.y = ypos
 		self.label.x = self.x
 		self.label.y = self.y
+
+
 
 
