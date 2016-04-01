@@ -6,7 +6,7 @@ from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.core.window import Window
 from kivy.clock import Clock
-
+from spaceship import *
 from system import *
 
 from kivy.config import Config
@@ -25,6 +25,7 @@ class Game(Widget):
         for planet in self.system.planets:
             self.add_widget(planet)
         self.player = Spaceship()
+        self.player.setPos(Window.width/4, Window.height/4)
  
     def update(self,dt):
         '''
@@ -33,6 +34,7 @@ class Game(Widget):
         dt - The change in time between updates of the game logic
         '''
         self.system.update(dt)
+        self.player.setPos(Window.width/4, Window.height/4)
         self.system.centerSystem()
 
         

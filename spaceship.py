@@ -1,4 +1,5 @@
-from widgetrenderer import *
+
+from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
 
@@ -9,8 +10,6 @@ class Spaceship(Widget):
 	size = NumericProperty(0)
 	x = NumericProperty(0)
 	y = NumericProperty(0)
-
-	source = StringProperty("")
 
 	def __init__(self, **kwargs):
 		super(Spaceship, self).__init__( **kwargs)
