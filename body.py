@@ -1,7 +1,6 @@
 import math
-
+from kivy.uix.widget import Widget
 from random import randrange
-from widgetrenderer import *
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
 from kivy.uix.label import Label
@@ -36,9 +35,9 @@ class Body(Widget):
 		Move the body in orbit around its star's position
 		starPos - (x,y) tuple of the center point of the star
 		'''
-		self.theta = self.theta + self.speed * NumericProperty(dt)
-		self.x = NumericProperty(int(math.cos(math.radians(self.theta)) * self.magnitude + starPos[0]))
-		self.y = NumericProperty(int(math.sin(math.radians(self.theta)) * self.magnitude + starPos[1]))
+		self.theta = self.theta + self.speed * dt
+		self.x = int(math.cos(math.radians(self.theta)) * self.magnitude + starPos[0])
+		self.y = int(math.sin(math.radians(self.theta)) * self.magnitude + starPos[1])
 		self.label.x = self.x
 		self.label.y = self.y
 
