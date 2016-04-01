@@ -20,7 +20,7 @@ class Game(Widget):
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
 
-        self.system = System('Brian C. Rosenberg')
+        self.system = System('Macalester College')
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)

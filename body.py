@@ -13,9 +13,9 @@ class Body(WidgetRenderer):
 	'''
 	def __init__(self, imgStr, title, **kwargs):
 		super(Body, self).__init__(imgStr, **kwargs)
-		self.theta = randrange(0, 360)
-		self.magnitude = randrange(60, 600, 20)
-		self.speed = randrange(20, 70)
+		self.theta = NumericProperty(randrange(0, 360))
+		self.magnitude = NumericProperty(randrange(60, 600, 20))
+		self.speed = NumericProperty(randrange(20, 70))
 		self.label = Label(text = title)
 		self.add_widget(self.label)
 
@@ -24,9 +24,11 @@ class Body(WidgetRenderer):
 		Move the body in orbit around its star's position
 		starPos - (x,y) tuple of the center point of the star
 		'''
-		self.theta = self.theta + self.speed * dt
-		self.setPos(math.cos(math.radians(self.theta)) * self.magnitude + starPos[0], math.sin(math.radians(self.theta)) * self.magnitude + starPos[1])
-
+		self.theta = self.theta + self.speed * NumericProperty(dt)
+		self.x = NumericProperty(int(math.cos(math.radians(self.theta)) * self.magnitude + starPos[0]))
+		self.y = NumericProperty(int(math.sin(math.radians(self.theta)) * self.magnitude + starPos[1]))
+		self.label.x = self.x
+		self.label.y = self.y
 
 	def setPos(self, xpos, ypos):
 		self.x = xpos
