@@ -1,7 +1,6 @@
 import math
-
+from kivy.uix.widget import Widget
 from random import randrange
-from widgetrenderer import *
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
 from kivy.uix.label import Label
@@ -37,8 +36,10 @@ class Body(Widget):
 		starPos - (x,y) tuple of the center point of the star
 		'''
 		self.theta = self.theta + self.speed * dt
-		self.setPos(math.cos(math.radians(self.theta)) * self.magnitude + starPos[0], math.sin(math.radians(self.theta)) * self.magnitude + starPos[1])
-
+		self.x = int(math.cos(math.radians(self.theta)) * self.magnitude + starPos[0])
+		self.y = int(math.sin(math.radians(self.theta)) * self.magnitude + starPos[1])
+		self.label.x = self.x
+		self.label.y = self.y
 
 	def setPos(self, xpos, ypos):
 		self.x = xpos
