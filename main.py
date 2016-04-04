@@ -8,7 +8,6 @@ from kivy.core.window import Window
 from kivy.clock import Clock
 from spaceship import *
 from system import *
-from spaceship import *
 
 from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable

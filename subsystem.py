@@ -19,4 +19,3 @@ class SubSystem():
 
 	def centerSystem(self):
 		self.star.setPos(Window.width/2-128, Window.height/2-128)
-

@@ -16,11 +16,11 @@ class Spaceship(Widget):
 		self.x = self.center_x
 		self.y = self.center_y
 
-	def move(self):
-		return null
+	# def move(self):
+	# 	return null
 
-	def rotate(self):
-		return null
+	# def rotate(self):
+	# 	return null
 
 	def setPos(self, xpos, ypos):
 		self.x = xpos
