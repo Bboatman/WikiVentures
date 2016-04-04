@@ -12,7 +12,7 @@ class Spaceship(Widget):
 
 	def __init__(self, **kwargs):
 		super(Spaceship, self).__init__( **kwargs)
-		self.size = 128
+		self.size = 50
 		self.x = self.center_x
 		self.y = self.center_y
 
