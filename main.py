@@ -28,6 +28,7 @@ class Game(Widget):
             self.add_widget(planet)
         self.player = Spaceship()
         self.player.setPos(Window.width/4, Window.height/4)
+        self.add_widget(self.player)
         Clock.schedule_interval(self.update, 1.0/60.0)
  
     def update(self,dt):
