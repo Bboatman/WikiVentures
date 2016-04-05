@@ -38,7 +38,7 @@ class Game(Widget):
         dt - The change in time between updates of the game logic
         '''
         self.system.update(dt)
-        self.player.setPos(Window.width/4, Window.height/4)
+        # self.player.setPos(Window.width/4, Window.height/4)
         self.system.centerSystem()
 
 
@@ -58,7 +58,6 @@ class GameScreen(Screen):
 class OptionsPopup(Popup):
     pass
         
-
 class ClientApp(App):
     screen_manager = ObjectProperty(None)
     ''' 
