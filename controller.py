@@ -1,6 +1,9 @@
+from math import atan2
+from math import pi
 from kivy.uix.widget import Widget
 from kivy.core.window import Window
 from spaceship import *
+
 
 class Controller(Widget):
     def __init__(self, player, **kwargs):
@@ -18,6 +21,11 @@ class Controller(Widget):
         print('My keyboard have been closed!')
         self._keyboard.unbind(on_key_down=self._on_keyboard_down)
         self._keyboard = None
+
+    def update(self, dt):
+        mouseX, mouseY = Window.mouse_pos
+        #this line needs to be right
+        self.player.angle = atan2(self.player.y - mouseY, self.player.x - mouseX) - pi/2
 
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):

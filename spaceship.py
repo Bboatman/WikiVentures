@@ -1,3 +1,5 @@
+from math import degrees
+
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
@@ -17,6 +19,7 @@ class Spaceship(Widget):
         self.speed = 100
         self.dir_x = 0
         self.dir_y = 0
+        self.angle = 0
         self.x = self.center_x
         self.y = self.center_y
         # self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
@@ -29,6 +32,7 @@ class Spaceship(Widget):
     def update(self, dt):
         self.x += (self.speed * self.dir_x) * dt
         self.y += (self.speed * self.dir_y) * dt
+        print(degrees(self.angle))
 
     # def _keyboard_closed(self):
     #     self._keyboard.unbind(on_key_down=self._on_keyboard_down)
