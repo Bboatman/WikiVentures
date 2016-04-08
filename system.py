@@ -20,8 +20,6 @@ class System(SubSystem):
 		for key in planet_names:
 			planet_names[i] = key + ' : ' + str(len(self.sections[key]))
 			i += 1
-			print(key)
-		print(planet_names)
 		super(System, self).__init__(planet_names, title)
 
 	def update(self, dt):

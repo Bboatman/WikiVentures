@@ -46,7 +46,3 @@ class Body(Widget):
 		self.y = ypos
 		self.label.x = self.x
 		self.label.y = self.y
-
-
-
-
