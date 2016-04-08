@@ -10,12 +10,14 @@ class Spaceship(Widget):
 	size = NumericProperty(0)
 	x = NumericProperty(0)
 	y = NumericProperty(0)
+	source = "./spaceship.png"
 
 	def __init__(self, **kwargs):
 		super(Spaceship, self).__init__( **kwargs)
-		self.size = 128
+		self.size = 50
 		self.x = self.center_x
 		self.y = self.center_y
+		self.setPos(0,0)
 
 	def move(self):
 		return null

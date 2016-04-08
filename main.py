@@ -26,15 +26,15 @@ class Game(Widget):
             self.add_widget(planet)
         self.player = Spaceship()
         self.player.setPos(Window.width/4, Window.height/4)
- 
+        print(self.player.get_top())
     def update(self,dt):
         '''
         This update function is the main update function for the game
         All of the game logic has its origin here
         dt - The change in time between updates of the game logic
         '''
-        self.system.update(dt)
         self.player.setPos(Window.width/4, Window.height/4)
+        self.system.update(dt)
         self.system.centerSystem()
 
         
