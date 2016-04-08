@@ -11,6 +11,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from spaceship import *
 from system import *
+from controller import *
 
 from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
@@ -28,6 +29,7 @@ class Game(Widget):
             self.add_widget(planet)
         self.player = Spaceship()
         self.player.setPos(Window.width/4, Window.height/4)
+        self.controller = Controller(self.player)
         self.add_widget(self.player)
         Clock.schedule_interval(self.update, 1.0/60.0)
  
@@ -38,7 +40,9 @@ class Game(Widget):
         dt - The change in time between updates of the game logic
         '''
         self.system.update(dt)
-        self.player.setPos(Window.width/4, Window.height/4)
+        self.player.update(dt)
+        self.controller.update(dt)
+        # self.player.setPos(Window.width/4, Window.height/4)
         self.system.centerSystem()
 
 
@@ -58,7 +62,6 @@ class GameScreen(Screen):
 class OptionsPopup(Popup):
     pass
         
-
 class ClientApp(App):
     screen_manager = ObjectProperty(None)
     ''' 
