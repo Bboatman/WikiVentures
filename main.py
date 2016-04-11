@@ -42,7 +42,6 @@ class Game(Widget):
         self.system.update(dt)
         self.player.update(dt)
         self.controller.update(dt)
-        # self.player.setPos(Window.width/4, Window.height/4)
         self.system.centerSystem()
 
 
