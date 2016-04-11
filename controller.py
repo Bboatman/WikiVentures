@@ -31,21 +31,21 @@ class Controller(Widget):
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
         # Keycode is composed of an integer + a string
         # If we hit escape, release the keyboard
-        if keycode[1] == 'w':
+        if keycode[1] == 'w' or keycode[1] == 'up':
             self.player.dir_y = 1
-        elif keycode[1] == 'a':
+        elif keycode[1] == 'a' or keycode[1] == 'left':
             self.player.dir_x = -1
-        elif keycode[1] == 's':
+        elif keycode[1] == 's' or keycode[1] == 'down':
             self.player.dir_y = -1
-        elif keycode[1] == 'd':
+        elif keycode[1] == 'd' or keycode[1] == 'right':
             self.player.dir_x = 1
 
     def _on_keyboard_up(self, keyboard, keycode):
         # Keycode is composed of an integer + a string
         # If we hit escape, release the keyboard
-        if keycode[1] == 'w' or keycode[1] == 's':
+        if keycode[1] == 'w' or keycode[1] == 's' or keycode[1] == 'up' or keycode[1] == 'down':
             self.player.dir_y = 0
-        elif keycode[1] == 'a' or keycode[1] == 'd':
+        elif keycode[1] == 'a' or keycode[1] == 'd' or keycode[1] == 'left' or keycode[1] == 'right':
             self.player.dir_x = 0
 
         # Return True to accept the key. Otherwise, it will be used by
