@@ -33,7 +33,7 @@ class Spaceship(Widget):
     def update(self, dt):
         self.x += (self.speed * self.dir_x) * dt
         self.y += (self.speed * self.dir_y) * dt
-        #print(degrees(self.angle))
+        #   print(degrees(self.angle))
 
     # def _keyboard_closed(self):
     #     self._keyboard.unbind(on_key_down=self._on_keyboard_down)
