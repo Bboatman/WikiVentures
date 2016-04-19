@@ -18,14 +18,14 @@ class Controller(Widget):
 
 
     def _keyboard_closed(self):
-        print('My keyboard have been closed!')
+        print('My keyboard has been closed!')
         self._keyboard.unbind(on_key_down=self._on_keyboard_down)
         self._keyboard = None
 
     def update(self, dt):
         mouseX, mouseY = Window.mouse_pos
-        #this line needs to be right
-        self.player.angle = atan2(self.player.y - mouseY, self.player.x - mouseX) - pi/2
+        centerDiff = self.player.size / 2
+        self.player.angle = atan2(self.player.y - mouseY + centerDiff, self.player.x - mouseX + centerDiff) + pi
 
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
