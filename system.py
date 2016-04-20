@@ -1,5 +1,4 @@
 from wikipedia import page
-from body import Body
 from subsystem import SubSystem
 from kivy.core.window import Window
 from string import ascii_lowercase as LETTERS 

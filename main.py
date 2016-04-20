@@ -9,9 +9,12 @@ from kivy.clock import Clock
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
+
 from spaceship import *
 from system import *
 from controller import *
+from collider import Collider
+
 
 from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
@@ -24,7 +27,7 @@ class Game(Widget):
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
         self.system = System('Macalester College')
-        self.add_widget(self.system.star)
+        self.collider = Collider()
         for planet in self.system.planets:
             self.add_widget(planet)
         self.player = Spaceship()
@@ -44,6 +47,18 @@ class Game(Widget):
         self.controller.update(dt)
         self.system.centerSystem()
 
+    def remake_system(self, title):
+        for planet in self.system.planets:
+            self.remove_widget(planet)
+        if isinstance(self.system, System):
+            print('going from: ' + self.system.title +  ' to: ' + str(self.system.sections[title[0]]))
+            self.system = SubSystem(self.system.sections[title[0]], title)
+        else:
+            print('going from: ' + self.system.title +  ' to: ' + title)
+            self.system = System(title)
+        for planet in self.system.planets:
+            self.add_widget(planet)
+
 
 class MenuScreen(Screen):
     options_popup = ObjectProperty(None)
@@ -57,6 +72,7 @@ class GameScreen(Screen):
 
     def on_enter(self):
         self.game_engine.__init__(self)
+        print(self)
 
 class OptionsPopup(Popup):
     pass

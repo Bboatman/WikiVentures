@@ -39,6 +39,8 @@ class Controller(Widget):
             self.player.dir_y = -1
         elif keycode[1] == 'd' or keycode[1] == 'right':
             self.player.dir_x = 1
+        elif keycode[1] == 'k':
+            self.player.warp_activate()
 
     def _on_keyboard_up(self, keyboard, keycode):
         # Keycode is composed of an integer + a string
