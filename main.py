@@ -10,6 +10,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 
+from enemyShip import *
 from spaceship import *
 from system import *
 from controller import *
@@ -18,8 +19,8 @@ from collider import Collider
 
 from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
-Window.clearcolor = (0,0,0,1.) #this fixes drawing issues on some phones
-
+Window.clearcolor = (0,0,0,1.0) #this fixes drawing issues on some phones
+ 
 class Game(Widget):
     '''
     The main widget class that contains the game, the game loop and runs everything
@@ -30,10 +31,16 @@ class Game(Widget):
         self.collider = Collider()
         for planet in self.system.planets:
             self.add_widget(planet)
+
         self.player = Spaceship()
         self.player.setPos(Window.width/4, Window.height/4)
         self.controller = Controller(self.player)
         self.add_widget(self.player)
+
+        self.enemy = Enemy()
+        self.enemy.setPos(Window.width/2, Window.width/2)
+        self.add_widget(self.enemy)
+
         Clock.schedule_interval(self.update, 1.0/60.0)
  
     def update(self,dt):
@@ -44,6 +51,7 @@ class Game(Widget):
         '''
         self.system.update(dt)
         self.player.update(dt)
+        self.enemy.update(dt)
         self.controller.update(dt)
         self.system.centerSystem()
 

@@ -1,5 +1,4 @@
 from math import degrees
-
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
@@ -30,7 +29,7 @@ class Spaceship(Collidable):
         self.angle = 0
         self.x = self.center_x
         self.y = self.center_y
-        
+
     def setPos(self, xpos, ypos):
         self.x = xpos
         self.y = ypos
