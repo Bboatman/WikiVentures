@@ -1,32 +1,34 @@
+import random
 from math import degrees
+from aiBrain import SubsumptionBrain
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
 from kivy.core.window import Window
 
-class Spaceship(Widget):
+class Enemy(Widget):
 
     ''' 
-    Player's spaceship used to travel to other planets.
+    Enemy ship with subsumption AI
     '''
     size = NumericProperty(0)
     x = NumericProperty(0)
     y = NumericProperty(0)
 
     def __init__(self, **kwargs):
-        super(Spaceship, self).__init__(**kwargs)
+        super(Enemy, self).__init__(**kwargs)
         self.size = 50
-        self.speed = 100
+        self.baseSpeed = random.randint(80, 110)
         self.dir_x = 0
         self.dir_y = 0
         self.angle = 0
         self.x = self.center_x
         self.y = self.center_y
+        self.brain = SubsumptionBrain(self)
 
     def setPos(self, xpos, ypos):
         self.x = xpos
         self.y = ypos
 
     def update(self, dt):
-        self.x += (self.speed * self.dir_x) * dt
-        self.y += (self.speed * self.dir_y) * dt
+        self.brain.step(dt)
