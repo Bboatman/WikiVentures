@@ -1,4 +1,3 @@
-from math import degrees
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
@@ -17,6 +16,7 @@ class Spaceship(Collidable):
     size = NumericProperty(0)
     x = NumericProperty(0)
     y = NumericProperty(0)
+    rotation = NumericProperty(0)
 
     warp = BooleanProperty(False)
 
@@ -26,7 +26,7 @@ class Spaceship(Collidable):
         self.speed = 200
         self.dir_x = 0
         self.dir_y = 0
-        self.angle = 0
+        self.rotation = 0
         self.x = self.center_x
         self.y = self.center_y
 
@@ -40,10 +40,8 @@ class Spaceship(Collidable):
 
     def warp_activate(self):
         self.warp = True
-        print('warp activated')
         Clock.schedule_once(self.warp_deactivate, 1)
 
     def warp_deactivate(self, dt = 0):
         if self.warp:
             self.warp = False
-            print('warp off')

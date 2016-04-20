@@ -1,5 +1,6 @@
 from math import atan2
 from math import pi
+from math import degrees
 from kivy.uix.widget import Widget
 from kivy.core.window import Window
 from spaceship import *
@@ -25,7 +26,7 @@ class Controller(Widget):
     def update(self, dt):
         mouseX, mouseY = Window.mouse_pos
         centerDiff = self.player.size / 2
-        self.player.angle = atan2(self.player.y - mouseY + centerDiff, self.player.x - mouseX + centerDiff) + pi
+        self.player.rotation = degrees(atan2(self.player.y - mouseY + centerDiff, self.player.x - mouseX + centerDiff) + pi)
 
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):

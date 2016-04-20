@@ -6,7 +6,9 @@ from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
 from kivy.core.window import Window
 
-class Enemy(Widget):
+from collider import Collidable
+
+class Enemy(Collidable):
 
     ''' 
     Enemy ship with subsumption AI

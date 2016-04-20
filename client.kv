@@ -9,6 +9,14 @@
 			size: (self.size, self.size)
 			source: self.source
 
+<Enemy>:
+    size: 32,32
+    canvas:
+        Rectangle:
+            pos: (self.x, self.y)
+            size: (self.size, self.size)
+            source: './assets/spaceChicken.png'
+
 <Spaceship>:
 	size: 50, 50
 	canvas:
@@ -17,13 +25,7 @@
             size: (self.size, self.size)
             source: './assets/spaceship.png'
 
-<Enemy>:
-    size: 32,32
-    canvas:
-        Rectangle:
-            pos: (self.x, self.y)
-            size: (self.size, self.size)
-            source: './assets/spaceChicken.png'
+
 			
 
 <GameScreen>:

@@ -27,6 +27,9 @@ class Game(Widget):
     '''
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
+        self.source = 'Macalester College'
+        self.destination = 'Steve Jobs'
+        self.path = [self.source]
         self.system = System('Macalester College')
         self.collider = Collider()
         for planet in self.system.planets:
@@ -50,22 +53,30 @@ class Game(Widget):
         dt - The change in time between updates of the game logic
         '''
         self.system.update(dt)
-        self.player.update(dt)
         self.enemy.update(dt)
+        self.player.update(dt)
         self.controller.update(dt)
         self.system.centerSystem()
 
     def remake_system(self, title):
+        print(self.path)
         for planet in self.system.planets:
             self.remove_widget(planet)
         if isinstance(self.system, System):
-            print('going from: ' + self.system.title +  ' to: ' + str(self.system.sections[title[0]]))
-            self.system = SubSystem(self.system.sections[title[0]], title)
+            #print('going from: ' + self.system.title +  ' to: ' + str(self.system.sections[title[0]]))
+            try:
+                self.system = SubSystem(self.system.sections[title[0]], self.system.title)
+            except KeyError:
+                self.system = System(self.path[-1])
         else:
-            print('going from: ' + self.system.title +  ' to: ' + title)
+            #print('going from: ' + self.system.title +  ' to: ' + title)
+            if title != self.path[-1]:
+                self.path.append(title)
             self.system = System(title)
         for planet in self.system.planets:
             self.add_widget(planet)
+
+
 
 
 class MenuScreen(Screen):
