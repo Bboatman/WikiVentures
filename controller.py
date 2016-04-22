@@ -1,5 +1,6 @@
 from math import atan2
 from math import pi
+from math import degrees
 from kivy.uix.widget import Widget
 from kivy.core.window import Window
 from spaceship import *
@@ -18,14 +19,14 @@ class Controller(Widget):
 
 
     def _keyboard_closed(self):
-        print('My keyboard have been closed!')
+        print('My keyboard has been closed!')
         self._keyboard.unbind(on_key_down=self._on_keyboard_down)
         self._keyboard = None
 
     def update(self, dt):
         mouseX, mouseY = Window.mouse_pos
-        #this line needs to be right
-        self.player.angle = atan2(self.player.y - mouseY, self.player.x - mouseX) - pi/2
+        centerDiff = self.player.size / 2
+        self.player.rotation = degrees(atan2(self.player.y - mouseY + centerDiff, self.player.x - mouseX + centerDiff) + pi)
 
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
@@ -39,6 +40,8 @@ class Controller(Widget):
             self.player.dir_y = -1
         elif keycode[1] == 'd' or keycode[1] == 'right':
             self.player.dir_x = 1
+        elif keycode[1] == 'k':
+            self.player.warp_activate()
 
     def _on_keyboard_up(self, keyboard, keycode):
         # Keycode is composed of an integer + a string

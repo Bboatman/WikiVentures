@@ -9,28 +9,41 @@ from kivy.clock import Clock
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
+
+from enemyShip import *
 from spaceship import *
 from system import *
 from controller import *
+from collider import Collider
+
 
 from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
-Window.clearcolor = (0,0,0,1.) #this fixes drawing issues on some phones
-
+Window.clearcolor = (0,0,0,1.0) #this fixes drawing issues on some phones
+ 
 class Game(Widget):
     '''
     The main widget class that contains the game, the game loop and runs everything
     '''
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
+        self.source = 'Macalester College'
+        self.destination = 'Steve Jobs'
+        self.path = [self.source]
         self.system = System('Macalester College')
-        self.add_widget(self.system.star)
+        self.collider = Collider()
         for planet in self.system.planets:
             self.add_widget(planet)
+
         self.player = Spaceship()
         self.player.setPos(Window.width/4, Window.height/4)
         self.controller = Controller(self.player)
         self.add_widget(self.player)
+
+        self.enemy = Enemy()
+        self.enemy.setPos(Window.width/2, Window.width/2)
+        self.add_widget(self.enemy)
+
         Clock.schedule_interval(self.update, 1.0/60.0)
  
     def update(self,dt):
@@ -40,9 +53,30 @@ class Game(Widget):
         dt - The change in time between updates of the game logic
         '''
         self.system.update(dt)
+        self.enemy.update(dt)
         self.player.update(dt)
         self.controller.update(dt)
         self.system.centerSystem()
+
+    def remake_system(self, title):
+        print(self.path)
+        for planet in self.system.planets:
+            self.remove_widget(planet)
+        if isinstance(self.system, System):
+            #print('going from: ' + self.system.title +  ' to: ' + str(self.system.sections[title[0]]))
+            try:
+                self.system = SubSystem(self.system.sections[title[0]], self.system.title)
+            except KeyError:
+                self.system = System(self.path[-1])
+        else:
+            #print('going from: ' + self.system.title +  ' to: ' + title)
+            if title != self.path[-1]:
+                self.path.append(title)
+            self.system = System(title)
+        for planet in self.system.planets:
+            self.add_widget(planet)
+
+
 
 
 class MenuScreen(Screen):
@@ -57,6 +91,7 @@ class GameScreen(Screen):
 
     def on_enter(self):
         self.game_engine.__init__(self)
+        print(self)
 
 class OptionsPopup(Popup):
     pass
