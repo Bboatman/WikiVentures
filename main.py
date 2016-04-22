@@ -9,6 +9,7 @@ from kivy.clock import Clock
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
+from kivy.graphics import Rectangle
 
 from enemyShip import *
 from spaceship import *
@@ -43,6 +44,8 @@ class Game(Widget):
         self.enemy = Enemy()
         self.enemy.setPos(Window.width/2, Window.width/2)
         self.add_widget(self.enemy)
+
+        self.window = Rectangle(size=self.size, pos=self.pos)
 
         Clock.schedule_interval(self.update, 1.0/60.0)
  

@@ -14,12 +14,13 @@ class SubsumptionBrain:
         the enemy that this brain is controlling."""
         self.behaviors = []
         self.entity = enemyEntity
+        """
         self.add(subsumptionBehaviors.wanderWander)
         self.add(subsumptionBehaviors.fleet)
         self.add(subsumptionBehaviors.defend)
         self.add(subsumptionBehaviors.chase)
         self.add(subsumptionBehaviors.avoid)
-
+"""
     def add(self, behavior):
         """Takes a behavior method as input, and initializes it, and
         adds it to the list"""
@@ -52,7 +53,7 @@ class SubsumptionBrain:
 
 
 # end of SubsumptionBrain Class
-
+"""
 class subsumptionBehaviors:
     def avoid():
         return None
@@ -70,6 +71,6 @@ class subsumptionBehaviors:
         speed = random.randint(80, 150)
         angle = random.randint(80, 100)
         return(speed, angle)
-
+"""
 
 
