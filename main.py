@@ -10,6 +10,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.graphics import Rectangle
+from kivy.uix.relativelayout import RelativeLayout
+from kivy.uix.scrollview import ScrollView
 
 from enemyShip import *
 from spaceship import *
@@ -45,7 +47,7 @@ class Game(Widget):
         self.enemy.setPos(Window.width/2, Window.width/2)
         self.add_widget(self.enemy)
 
-        self.window = Rectangle(size=self.size, pos=self.pos)
+        #self.window = Rectangle(size=self.size, pos=self.pos)
 
         Clock.schedule_interval(self.update, 1.0/60.0)
  
@@ -90,11 +92,18 @@ class MenuScreen(Screen):
         self.options_popup.open()
 
 class GameScreen(Screen):
-    game_engine = ObjectProperty(None)
-
+    
     def on_enter(self):
-        self.game_engine.__init__(self)
-        print(self)
+        scrollview = ScrollView()
+        layout = RelativeLayout(
+            size_hint_x=None,
+            size_hint_y=None,
+            size=(3000, 3000))
+        game = Game()
+
+        layout.add_widget(game)
+        scrollview.add_widget(layout)
+        self.add_widget(scrollview)
 
 class OptionsPopup(Popup):
     pass
