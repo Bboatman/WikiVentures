@@ -12,13 +12,16 @@ from kivy.uix.popup import Popup
 from kivy.graphics import Rectangle
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.scrollview import ScrollView
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.image import AsyncImage
+from kivy.graphics import Color, Rectangle
+from kivy.uix.button import Button
 
 from enemyShip import *
 from spaceship import *
 from system import *
 from controller import *
 from collider import Collider
-
 
 from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
@@ -47,8 +50,6 @@ class Game(Widget):
         self.enemy = Enemy()
         self.enemy.setPos(Window.width/2, Window.width/2)
         self.add_widget(self.enemy)
-
-        #self.window = Rectangle(size=self.size, pos=self.pos)
 
         Clock.schedule_interval(self.update, 1.0/60.0)
  
@@ -84,9 +85,6 @@ class Game(Widget):
         for planet in self.system.planets:
             self.add_widget(planet)
 
-
-
-
 class MenuScreen(Screen):
     options_popup = ObjectProperty(None)
 
@@ -95,7 +93,6 @@ class MenuScreen(Screen):
         self.options_popup.open()
 
 class GameScreen(Screen):
-    
     def on_enter(self):
         scrollview = ScrollView()
         layout = RelativeLayout(
@@ -109,9 +106,15 @@ class GameScreen(Screen):
         self.add_widget(scrollview)
         scrollview.scroll_to(game.player)
 
-class OptionsPopup(Popup):
+class TutorialScreen(Screen):
     pass
         
+class PreTutorialScreen(Screen):
+    pass
+
+class OptionsPopup(Popup):
+    pass
+
 class ClientApp(App):
     screen_manager = ObjectProperty(None)
     ''' 
@@ -123,9 +126,14 @@ class ClientApp(App):
 
         ms = MenuScreen(name="menu_screen")
         gs = GameScreen(name="game_screen")
+        pts = PreTutorialScreen(name="pretutorial_screen")
+        ts = TutorialScreen(name="tutorial_screen")
 
         self.screen_manager.add_widget(ms)
+        self.screen_manager.add_widget(pts)
+        self.screen_manager.add_widget(ts)
         self.screen_manager.add_widget(gs)
+
         #parent = Widget() #this is an empty holder for buttons, etc
         #app = Game()        
         #Start the game clock (runs update function once every (1/60) seconds
