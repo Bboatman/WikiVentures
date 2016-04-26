@@ -11,10 +11,11 @@ class SubSystem(object):
 		self.centerSystem()
 		self.planets = []
 		i = 1
-		for name in planet_names:
-			self.planets.append(Body(name, i))
-			i += 1
-
+		# for name in planet_names:
+		# 	self.planets.append(Body(name, i))
+		# 	i += 1
+		for i in range(300):
+			self.planets.append(Body(str(i), i))
 
 	def update(self, dt):
 		for planet in self.planets:

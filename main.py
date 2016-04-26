@@ -64,6 +64,7 @@ class Game(Widget):
         self.player.update(dt)
         self.controller.update(dt)
         self.system.centerSystem()
+        self.parent.scroll_to(self.player)
 
     def remake_system(self, title):
         print(self.path)
@@ -94,17 +95,18 @@ class MenuScreen(Screen):
 
 class GameScreen(Screen):
     def on_enter(self):
-        scrollview = ScrollView()
-        layout = RelativeLayout(
-            size_hint_x=None,
-            size_hint_y=None,
-            size=(3000, 3000))
-        game = Game()
+        self.scrollview = ScrollView(size=(Window.width, Window.height))
+        self.game = Game()
 
-        layout.add_widget(game)
-        scrollview.add_widget(layout)
-        self.add_widget(scrollview)
-        scrollview.scroll_to(game.player)
+        self.scrollview.add_widget(self.game)
+        self.scrollview.do_scroll = True
+        self.add_widget(self.scrollview)
+        self.game.player.bind(pos=self.scroll_to_player_cb)
+
+    def scroll_to_player_cb(self, player, pos):
+        self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
+
+
 
 class TutorialScreen(Screen):
     pass
