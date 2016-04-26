@@ -61,7 +61,7 @@
                         halign: "center"
                         valign: "middle"
                         text: "Options"
-                        on_press: root.show_popup()
+                        on_press: root.show_popup(Options)
 
 <PreTutorialScreen>
     AnchorLayout:
@@ -85,7 +85,7 @@
                 halign: "center"
                 valign: "middle"
                 text: "I'm an ace pilot."
-                on_press: root.manager.current = "game_screen"
+                on_press: root.manager.current = "missioncontrol_screen"
 
             Button:
                 halign: "center"
@@ -116,6 +116,29 @@
                 valign: "middle"
                 size_hint: (0.75, 1)
                 text: "Thanks, Captain. I'm ready for take off!"
+                on_press: root.manager.current = "missioncontrol_screen"
+
+<MissionControlScreen>
+    AnchorLayout:
+        anchor_x: "center"
+        size_hint_y: 0.6
+
+        BoxLayout:
+            size_hint: 0.5, 0.5
+            orientation: "vertical"
+            spacing: 10
+
+            Label:
+                text_size: root.width, None
+                size: self.texture_size
+                text: "Cadet, we have an emergency! Unknown alien activity has been spotted in [insert end page here]. Unfortunately, this is uncharted territory, so we have very little information to give you. We'll beam you to the nearest system according to our sources. Travel to various planets and systems to find [insert end page here]. Hint: Get creative! The more relevant the title of a planet is to your destination the faster you'll find it."
+                valign: "middle"
+                font_size: 16
+                padding: 10, 10
+
+            Button:
+                size_hint_x: 0.5
+                text: "Understood. I'll do my best, Captain!"
                 on_press: root.manager.current = "game_screen"
 
 <OptionsPopup>

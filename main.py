@@ -104,11 +104,14 @@ class GameScreen(Screen):
 
 class TutorialScreen(Screen):
     pass
-        
+
 class PreTutorialScreen(Screen):
     pass
 
 class OptionsPopup(Popup):
+    pass
+
+class MissionControlScreen(Screen):
     pass
 
 class ClientApp(App):
@@ -124,11 +127,13 @@ class ClientApp(App):
         gs = GameScreen(name="game_screen")
         pts = PreTutorialScreen(name="pretutorial_screen")
         ts = TutorialScreen(name="tutorial_screen")
+        mcs = MissionControlScreen(name="missioncontrol_screen")
 
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
         self.screen_manager.add_widget(ts)
         self.screen_manager.add_widget(gs)
+        self.screen_manager.add_widget(mcs)
 
         #parent = Widget() #this is an empty holder for buttons, etc
         #app = Game()        
