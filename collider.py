@@ -1,3 +1,4 @@
+import math
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty
 from kivy.properties import BooleanProperty
@@ -10,10 +11,19 @@ class Collider(Widget):
 		self.count = 0 #for debugging purposes
 	def collision_check_cb(self, instance, value):
 		if instance.parent:
-			for widget in instance.parent.children:
-				if self.did_collide(instance, widget):
-					instance.on_collide(widget)
-					widget.on_collide(instance)
+			#self.magnitude = order * 100 + 100
+			player_magnitude = math.sqrt((instance.parent.system.star.center_x - instance.x) ** 2 + (instance.parent.system.star.center_y  - instance.y) ** 2)
+			approx_index = math.floor(player_magnitude/100) - 1
+			approx_index = approx_index if approx_index > 0 else 0
+			less = approx_index - 1 if approx_index > 0 else 0
+			more = approx_index + 1 if approx_index < len(instance.parent.system.planets) else len(instance.parent.system.planets) - 1
+			index_range = [less, approx_index, more]
+			for i in index_range:
+				if self.did_collide(instance, instance.parent.system.planets[i]):
+					instance.on_collide(instance.parent.system.planets[i])
+					instance.parent.system.planets[i].on_collide(instance)
+					break
+
 	def did_collide(self, widA, widB):
 		if widA is widB:
 			return False
@@ -35,7 +45,7 @@ class Collidable(Widget):
 	def destory(self):
 		self.is_dead = True
 	def bind_to_collider(self, instance, value):
-		if value:
+		if value and isinstance(self, type(value.player)):
 			self.bind(pos=value.collider.collision_check_cb)
 	def clean_up_self_cb(self, instance, value):
 		if value and self.parent:

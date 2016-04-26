@@ -20,10 +20,3 @@ class System(SubSystem):
 			planet_names[i] = key + ' : ' + str(len(self.sections[key]))
 			i += 1
 		super(System, self).__init__(planet_names, title)
-
-	def update(self, dt):
-		for planet in self.planets:
-			planet.orbit((self.star.x + 120, self.star.y + 120), dt)
-
-	def centerSystem(self):
-		self.star.setPos(Window.width/2-128, Window.height/2-128)

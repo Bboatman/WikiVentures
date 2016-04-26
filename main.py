@@ -38,11 +38,12 @@ class Game(Widget):
         self.path = [self.source]
         self.system = System('Macalester College')
         self.collider = Collider()
+        self.player = Spaceship()
+        self.player.setPos(Window.width/4, Window.height/4)
+        self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
 
-        self.player = Spaceship()
-        self.player.setPos(Window.width/4, Window.height/4)
         self.controller = Controller(self.player)
         self.add_widget(self.player)
 
@@ -68,6 +69,7 @@ class Game(Widget):
         print(self.path)
         for planet in self.system.planets:
             self.remove_widget(planet)
+        self.remove_widget(self.system.star)
         if isinstance(self.system, System):
             #print('going from: ' + self.system.title +  ' to: ' + str(self.system.sections[title[0]]))
             try:
@@ -79,6 +81,7 @@ class Game(Widget):
             if title != self.path[-1]:
                 self.path.append(title)
             self.system = System(title)
+        self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
 
@@ -101,6 +104,7 @@ class GameScreen(Screen):
         layout.add_widget(game)
         scrollview.add_widget(layout)
         self.add_widget(scrollview)
+        scrollview.scroll_to(game.player)
 
 class TutorialScreen(Screen):
     pass
