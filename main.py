@@ -12,6 +12,10 @@ from kivy.uix.popup import Popup
 from kivy.graphics import Rectangle
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.scrollview import ScrollView
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.image import AsyncImage
+from kivy.graphics import Color, Rectangle
+from kivy.uix.button import Button
 
 from enemyShip import *
 from spaceship import *
@@ -19,7 +23,6 @@ from system import *
 from controller import *
 from collider import Collider
 from scrollFeatures import *
-
 
 from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
@@ -36,19 +39,18 @@ class Game(Widget):
         self.path = [self.source]
         self.system = System('Macalester College')
         self.collider = Collider()
+        self.player = Spaceship()
+        self.player.setPos(Window.width/4, Window.height/4)
+        self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
 
-        self.player = Spaceship()
-        self.player.setPos(Window.width/4, Window.height/4)
         self.controller = Controller(self.player)
         self.add_widget(self.player)
 
         self.enemy = Enemy()
         self.enemy.setPos(Window.width/2, Window.width/2)
         self.add_widget(self.enemy)
-
-        #self.window = Rectangle(size=self.size, pos=self.pos)
 
         Clock.schedule_interval(self.update, 1.0/60.0)
  
@@ -63,11 +65,13 @@ class Game(Widget):
         self.player.update(dt)
         self.controller.update(dt)
         self.system.centerSystem()
+        self.parent.scroll_to(self.player)
 
     def remake_system(self, title):
         print(self.path)
         for planet in self.system.planets:
             self.remove_widget(planet)
+        self.remove_widget(self.system.star)
         if isinstance(self.system, System):
             #print('going from: ' + self.system.title +  ' to: ' + str(self.system.sections[title[0]]))
             try:
@@ -79,6 +83,7 @@ class Game(Widget):
             if title != self.path[-1]:
                 self.path.append(title)
             self.system = System(title)
+        self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
 
@@ -91,22 +96,29 @@ class MenuScreen(Screen):
         self.options_popup.open()
 
 class GameScreen(Screen):
-    
     def on_enter(self):
-        scrollview = ScrollView()
-        layout = RelativeLayout(
-            size_hint_x=None,
-            size_hint_y=None,
-            size=(3000, 3000))
-        game = Game()
+        self.scrollview = ScrollView(size=(Window.width, Window.height))
+        self.game = Game()
 
-        layout.add_widget(game)
-        scrollview.add_widget(layout)
-        self.add_widget(scrollview)
+        self.scrollview.add_widget(self.game)
+        self.scrollview.do_scroll = True
+        self.add_widget(self.scrollview)
+        self.game.player.bind(pos=self.scroll_to_player_cb)
+
+    def scroll_to_player_cb(self, player, pos):
+        self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
+
+
+
+class TutorialScreen(Screen):
+    pass
+        
+class PreTutorialScreen(Screen):
+    pass
 
 class OptionsPopup(Popup):
     pass
-        
+
 class ClientApp(App):
     screen_manager = ObjectProperty(None)
     ''' 
@@ -118,9 +130,14 @@ class ClientApp(App):
 
         ms = MenuScreen(name="menu_screen")
         gs = GameScreen(name="game_screen")
+        pts = PreTutorialScreen(name="pretutorial_screen")
+        ts = TutorialScreen(name="tutorial_screen")
 
         self.screen_manager.add_widget(ms)
+        self.screen_manager.add_widget(pts)
+        self.screen_manager.add_widget(ts)
         self.screen_manager.add_widget(gs)
+
         #parent = Widget() #this is an empty holder for buttons, etc
         #app = Game()        
         #Start the game clock (runs update function once every (1/60) seconds

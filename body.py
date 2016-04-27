@@ -20,26 +20,26 @@ class Body(Collidable):
 
 	source = StringProperty("")
 
-	def __init__(self, imgStr, title, order, **kwargs):
+	def __init__(self, title, order, **kwargs):
 		super(Body, self).__init__( **kwargs)
 		self.theta = randrange(0, 360)
-		self.magnitude = order * 50 + 100
-		self.speed = randrange(20, 70)
+		self.magnitude = order * 100 + 100
+		self.speed = randrange(40, 41) * 150.0 / self.magnitude
 		
 		self.label = Label(text = title, pos = (self.center_x, self.center_y))
 		self.add_widget(self.label)
 
-		self.source = imgStr
-		self.size = 50 if imgStr == './assets/planet.png' else 256
+		self.source = './assets/planet.png'
+		self.size = 50 
 
-	def orbit(self, starPos, dt):
+	def update(self, starPos, dt):
 		'''
 		Move the body in orbit around its star's position
 		starPos - (x,y) tuple of the center point of the star
 		'''
-		self.theta = self.theta + self.speed * dt
-		self.x = int(math.cos(math.radians(self.theta)) * self.magnitude + starPos[0])
-		self.y = int(math.sin(math.radians(self.theta)) * self.magnitude + starPos[1])
+		self.theta = (self.theta + self.speed * dt) % 360.0
+		self.x = (math.cos(math.radians(self.theta)) * self.magnitude + starPos[0]) - self.size/2
+		self.y = (math.sin(math.radians(self.theta)) * self.magnitude + starPos[1]) - self.size/2
 		self.label.x = self.x
 		self.label.y = self.y
 	def on_collide(self, other_widget):
@@ -53,3 +53,12 @@ class Body(Collidable):
 		self.y = ypos
 		self.label.x = self.x
 		self.label.y = self.y
+
+class Star(Body):
+	def __init__(self, title, **kwargs):
+		super(Star, self).__init__(title, 0, **kwargs)
+		self.source = './assets/big_planet.png'
+		self.size = 256
+
+	def update(self, starPos, dt):
+		pass
