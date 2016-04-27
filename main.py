@@ -72,14 +72,17 @@ class Game(Widget):
             self.remove_widget(planet)
         self.remove_widget(self.system.star)
         if title == 'notta_page':
-            self.system = System(self.path[-2])
-            self.path.pop(-1)
+            jump_back = -2 if len(self.path) > 1 else -1
+            self.system = System(self.path[jump_back])
+            print('jump_back')
+            if jump_back < -1: self.path.pop(-1)
         else:
             self.system = System(title) 
             self.path.append(title)       
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
+        self.player.pos = self.system.star.pos
         print(self.path)
 
 class MenuScreen(Screen):
@@ -104,9 +107,7 @@ class GameScreen(Screen):
     def scroll_to_player_cb(self, player, pos):
         self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
-        print('game pos:   ' + str(self.game.pos))
-        print('screen pos: ' + str(self.scrollview.pos))
-        
+
 
 
 
