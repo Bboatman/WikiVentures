@@ -18,6 +18,7 @@ from spaceship import *
 from system import *
 from controller import *
 from collider import Collider
+from scrollFeatures import *
 
 
 from kivy.config import Config
@@ -80,8 +81,6 @@ class Game(Widget):
             self.system = System(title)
         for planet in self.system.planets:
             self.add_widget(planet)
-
-
 
 
 class MenuScreen(Screen):
