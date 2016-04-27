@@ -18,8 +18,6 @@ class Body(Collidable):
 	x = NumericProperty(0)
 	y = NumericProperty(0)
 
-	source = StringProperty("")
-
 	def __init__(self, title, order, **kwargs):
 		super(Body, self).__init__( **kwargs)
 		self.theta = randrange(0, 360)
@@ -29,7 +27,6 @@ class Body(Collidable):
 		self.label = Label(text = title, pos = (self.center_x, self.center_y))
 		self.add_widget(self.label)
 
-		self.source = './assets/planet.png'
 		self.size = 50 
 
 	def update(self, starPos, dt):
@@ -54,11 +51,23 @@ class Body(Collidable):
 		self.label.x = self.x
 		self.label.y = self.y
 
-class Star(Body):
+class Star(Collidable):
+	size = NumericProperty(0)
+	x = NumericProperty(0)
+	y = NumericProperty(0)
+
 	def __init__(self, title, **kwargs):
-		super(Star, self).__init__(title, 0, **kwargs)
-		self.source = './assets/big_planet.png'
+		super(Star, self).__init__(**kwargs)
+		self.label = Label(text = title)
+		self.label.color = (0, 255, 255, 1)
+		self.label.bold = True
+		self.label.font_size = 30
+		self.label.pos = (self.center_x, self.center_y)
+		self.add_widget(self.label)
 		self.size = 256
 
-	def update(self, starPos, dt):
-		pass
+	def setPos(self, xpos, ypos):
+		self.x = xpos
+		self.y = ypos
+		self.label.x = self.x
+		self.label.y = self.y

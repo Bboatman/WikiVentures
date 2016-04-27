@@ -1,5 +1,14 @@
 #:kivy 1.9.1
 
+<Star>:
+    size: 50, 50
+    canvas:
+        Rectangle:
+            pos: (self.x, self.y)
+            size: (self.size, self.size)
+            source: './assets/big_planet.png'
+            Color: 
+                rgb: (255, 255, 255)
 
 <Body>:
 	size: 50, 50
@@ -7,7 +16,7 @@
 		Rectangle:
 			pos: (self.x, self.y)
 			size: (self.size, self.size)
-			source: self.source
+			source: './assets/planet.png'
             Color: 
                 rgb: (255, 255, 255)
 
