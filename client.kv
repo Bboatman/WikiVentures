@@ -4,12 +4,10 @@
 <Body>:
 	size: 50, 50
 	canvas:
-		Rectangle:
+		Ellipse:
 			pos: (self.x, self.y)
 			size: (self.size, self.size)
 			source: self.source
-            Color: 
-                rgb: (255, 255, 255)
 
 <Enemy>:
     size: 32,32
@@ -42,6 +40,7 @@
                 valign: "bottom"
                 bold: True
                 font_size: 50
+                font_name: courier
                 padding: 0, 0
 
             AnchorLayout:
@@ -133,13 +132,13 @@
             Label:
                 text_size: root.width, None
                 size: self.texture_size
-                text: "Cadet, we have an emergency! Unknown alien activity has been spotted in [insert end page here]. Unfortunately, this is uncharted territory, so we have very little information to give you. We'll beam you to the nearest system according to our sources. Travel to various planets and systems to find [insert end page here]. Hint: Get creative! The more relevant the title of a planet is to your destination the faster you'll find it."
+                text: "Cadet, we have an emergency! Unknown alien activity has been spotted in [insert end page here]. Unfortunately, this is uncharted territory, so we have very little information to give you. We'll beam you to the nearest system according to our sources. Travel to various planets and systems to find [insert end page here]. Hint: Get creative! The more relevant the title of a planet is to your destination, the faster you'll find it."
                 valign: "middle"
                 font_size: 16
                 padding: 10, 10
 
             Button:
-                size_hint_x: 0.5
+                size_hint_x: 0.7
                 text: "Understood. I'll do my best, Captain!"
                 on_press: root.manager.current = "game_screen"
 
