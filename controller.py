@@ -42,6 +42,8 @@ class Controller(Widget):
             self.player.dir_x = 1
         elif keycode[1] == 'k':
             self.player.warp_activate()
+        elif keycode[1] == 'j':
+            self.player.parent.remake_system()
 
     def _on_keyboard_up(self, keyboard, keycode):
         # Keycode is composed of an integer + a string
