@@ -18,7 +18,7 @@ class SubSystem(object):
     def update(self, dt):
         for planet in self.planets:
             planet.update((self.star.x + self.star.size//2, self.star.y+ self.star.size//2), dt)
-        self.star.label.text = self.title
+        #self.star.label.text = self.title
     
     """
     def centerSystem(self):
