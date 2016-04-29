@@ -26,6 +26,7 @@ from collider import Collider
 from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
 Window.clearcolor = (0,0,0,1.0) #this fixes drawing issues on some phones
+
  
 class Game(Widget):
     '''
@@ -66,25 +67,23 @@ class Game(Widget):
         self.system.centerSystem()
         self.parent.scroll_to(self.player)
 
-    def remake_system(self, title):
-        print(self.path)
+    def remake_system(self, title = 'notta_page'):
         for planet in self.system.planets:
             self.remove_widget(planet)
         self.remove_widget(self.system.star)
-        if isinstance(self.system, System):
-            #print('going from: ' + self.system.title +  ' to: ' + str(self.system.sections[title[0]]))
-            try:
-                self.system = SubSystem(self.system.sections[title[0]], self.system.title)
-            except KeyError:
-                self.system = System(self.path[-1])
+        if title == 'notta_page':
+            jump_back = -2 if len(self.path) > 1 else -1
+            self.system = System(self.path[jump_back])
+            print('jump_back')
+            if jump_back < -1: self.path.pop(-1)
         else:
-            #print('going from: ' + self.system.title +  ' to: ' + title)
-            if title != self.path[-1]:
-                self.path.append(title)
-            self.system = System(title)
+            self.system = System(title) 
+            self.path.append(title)       
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
+        self.player.pos = self.system.star.pos
+        print(self.path)
 
 class MenuScreen(Screen):
     options_popup = ObjectProperty(None)
@@ -95,16 +94,20 @@ class MenuScreen(Screen):
 
 class GameScreen(Screen):
     def on_enter(self):
-        self.scrollview = ScrollView(size=(Window.width, Window.height))
+        self.scrollview = ScrollView(size=(100000, 1000000))
+        #self.scrollview.viewport_size = (Window.width, Window.height)
         self.game = Game()
 
         self.scrollview.add_widget(self.game)
         self.scrollview.do_scroll = True
         self.add_widget(self.scrollview)
+        Window.show_cursor = False
         self.game.player.bind(pos=self.scroll_to_player_cb)
 
     def scroll_to_player_cb(self, player, pos):
+        self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
+
 
 
 

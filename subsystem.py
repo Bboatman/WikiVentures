@@ -5,17 +5,13 @@ class SubSystem(object):
 	def __init__(self, planet_names, title):
 		self.title = title
 		self.star = Star(title)
-		self.star.label.color = (0, 255, 255, 1)
-		self.star.label.bold = True
-		self.star.label.font_size = 30
 		self.centerSystem()
 		self.planets = []
 		i = 1
-		# for name in planet_names:
-		# 	self.planets.append(Body(name, i))
-		# 	i += 1
-		for i in range(300):
-			self.planets.append(Body(str(i), i))
+		for name in planet_names:
+			self.planets.append(Body(name, i))
+			i += 1
+
 
 	def update(self, dt):
 		for planet in self.planets:

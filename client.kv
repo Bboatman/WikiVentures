@@ -1,13 +1,24 @@
 #:kivy 1.9.1
 
+<Star>:
+    size: 50, 50
+    canvas:
+        Rectangle:
+            pos: (self.x, self.y)
+            size: (self.size, self.size)
+            source: './assets/big_planet.png'
+            Color: 
+                rgb: (255, 255, 255)
 
 <Body>:
-	size: 50, 50
-	canvas:
-		Ellipse:
-			pos: (self.x, self.y)
-			size: (self.size, self.size)
-			source: self.source
+    size: 50, 50
+    canvas:
+        Rectangle:
+            pos: (self.x, self.y)
+            size: (self.size, self.size)
+            source: './assets/planet.png'
+            Color: 
+                rgb: (255, 255, 255)
 
 <Enemy>:
     size: 32,32
@@ -18,9 +29,9 @@
             source: './assets/spaceChicken.png'
 
 <Spaceship>:
-	size: 64, 64
-	canvas:
-		Rectangle:
+    size: 64, 64
+    canvas:
+        Rectangle:
             pos: (self.x, self.y)
             size: (self.size, self.size)
             source: './assets/spaceship_moving.gif'
@@ -40,7 +51,6 @@
                 valign: "bottom"
                 bold: True
                 font_size: 50
-                font_name: courier
                 padding: 0, 0
 
             AnchorLayout:
