@@ -23,7 +23,7 @@ class Spaceship(Collidable):
     def __init__(self, **kwargs):
         super(Spaceship, self).__init__(**kwargs)
         self.size = 50
-        self.speed = 200
+        self.speed = 1000
         self.dir_x = 0
         self.dir_y = 0
         self.rotation = 0
