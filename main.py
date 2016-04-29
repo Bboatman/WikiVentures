@@ -82,7 +82,7 @@ class Game(Widget):
         if title == 'notta_page':
             jump_back = -2 if len(self.path) > 1 else -1
             self.system = System(self.path[jump_back])
-            print('jump_back')
+            #print('jump_back')
             if jump_back < -1: self.path.pop(-1)
         else:
             self.system = System(title) 
@@ -98,7 +98,7 @@ class Game(Widget):
         # print self.system.star.pos
         # print self.player.pos
         # print self.enemy.pos
-        # print(self.path)
+        print(self.path)
 
 
 class MenuScreen(Screen):

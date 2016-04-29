@@ -41,7 +41,6 @@ class Body(Collidable):
         self.label.y = self.y
     def on_collide(self, other_widget):
         if isinstance(other_widget, Spaceship) and other_widget.warp:
-            #print(self.parent.remake_system)
             other_widget.warp_deactivate()
             self.parent.remake_system(self.label.text)
 
@@ -58,9 +57,7 @@ class Star(Collidable):
 
     def __init__(self, title, **kwargs):
         super(Star, self).__init__(**kwargs)
-        self.label = Label(text = title, font_name = 'joystix monospace')
-        self.label.color = (0, 255, 255, 1)
-        self.label.bold = True
+        self.label = Label(text = '[color=ff3333]'+title+'[/color]', font_name = 'joystix monospace', markup = True)
         self.label.font_size = 30
         self.label.pos = (self.center_x, self.center_y)
         self.add_widget(self.label)
