@@ -41,7 +41,7 @@ class Game(Widget):
         self.system = System('Macalester College')
         self.collider = Collider()
         self.player = Spaceship()
-        self.player.setPos(Window.width/4, Window.height/4)
+        #self.player.setPos(Window.width/4, Window.height/4)
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
@@ -50,7 +50,7 @@ class Game(Widget):
         self.add_widget(self.player)
 
         self.enemy = Enemy()
-        self.enemy.setPos(Window.width/2, Window.width/2)
+        #self.enemy.setPos(Window.width/2, Window.width/2)
         self.add_widget(self.enemy)
 
         Clock.schedule_interval(self.update, 1.0/60.0)
@@ -66,8 +66,8 @@ class Game(Widget):
         self.enemy.update(dt)
         self.player.update(dt)
         self.controller.update(dt)
-        self.system.centerSystem()
-        self.parent.scroll_to(self.player)
+        #self.system.centerSystem()
+        self.parent.parent.scroll_to(self.player)
 
     def remake_system(self, title = 'notta_page'):
         for planet in self.system.planets:
@@ -97,21 +97,31 @@ class MenuScreen(Screen):
 
 class GameScreen(Screen):
     def on_enter(self):
-        self.scrollview = ScrollView()
-        #self.scrollview.viewport_size = (Window.width, Window.height)
-        self.floatlayout = FloatLayout(
-            size=(100000, 100000),
-            size_hint=(None, None))
-        #print self.floatlayout.size_hint
         self.game = Game()
+        self.scrollview = ScrollView(
+            size=(10000, 10000), 
+            size_hint=(None, None))
+        self.floatlayout = FloatLayout()
+            #pos_hint={'x': 1, 'y': 1})
+            #size=(1000, 1000),  
+            #size_hint=(None, None),
+            #pos_hint=)        
 
+        #self.scrollview.viewport_size = (Window.width, Window.height)
+        """Below is a temporary solution for spaceship and planets disappearing"""
+        self.game.system.star.setPos(self.floatlayout.width*50, self.floatlayout.width*50)
+        self.game.player.setPos(self.floatlayout.width*50, self.floatlayout.height*50)
+        self.game.enemy.setPos(self.floatlayout.width*50, self.floatlayout.height*50)
 
-        self.scrollview.add_widget(self.game)
-        self.floatlayout.add_widget(self.scrollview)
+        self.floatlayout.add_widget(self.game)
+        self.scrollview.add_widget(self.floatlayout)
+        self.add_widget(self.scrollview)
+        #self.scrollview.add_widget(self.game)
+        #self.floatlayout.add_widget(self.scrollview)
+        #self.add_widget(self.floatlayout)
 
-        self.scrollview.do_scroll = True
-        self.add_widget(self.floatlayout)
-        Window.show_cursor = False
+        self.scrollview.do_scroll = True        
+        #Window.show_cursor = False
         self.game.player.bind(pos=self.scroll_to_player_cb)
 
     def scroll_to_player_cb(self, player, pos):

@@ -5,7 +5,7 @@ class SubSystem(object):
 	def __init__(self, planet_names, title):
 		self.title = title
 		self.star = Star(title)
-		self.centerSystem()
+		#self.centerSystem()
 		self.planets = []
 		i = 1
 		for name in planet_names:
@@ -17,6 +17,7 @@ class SubSystem(object):
 		for planet in self.planets:
 			planet.update((self.star.x + self.star.size//2, self.star.y+ self.star.size//2), dt)
 		self.star.label.text = self.title
-
+"""
 	def centerSystem(self):
 		self.star.setPos(Window.width/2-128, Window.height/2-128)
+		"""
