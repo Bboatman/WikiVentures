@@ -22,7 +22,7 @@ from spaceship import *
 from system import *
 from controller import *
 from collider import Collider
-from scrollFeatures import *
+from music import *
 
 from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
@@ -89,6 +89,9 @@ class Game(Widget):
 
 
 class MenuScreen(Screen):
+    '''
+    Opening menu screen
+    '''
     options_popup = ObjectProperty(None)
 
     def show_popup(self):
@@ -96,6 +99,9 @@ class MenuScreen(Screen):
         self.options_popup.open()
 
 class GameScreen(Screen):
+    '''
+    Screen where game is played
+    '''
     def on_enter(self):
         self.game = Game()
         self.scrollview = ScrollView(
@@ -128,16 +134,28 @@ class GameScreen(Screen):
         #self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
 
-
-
+class PreTutorialScreen(Screen):
+    '''
+    Gives player option to read directions or to play gmae
+    '''
+    pass
 
 class TutorialScreen(Screen):
-    pass
-        
-class PreTutorialScreen(Screen):
+    '''
+    Tutuorial screen displays directions for game play
+    '''
     pass
 
 class OptionsPopup(Popup):
+    '''
+    Options menu
+    '''
+    pass
+
+class MissionControlScreen(Screen):
+    '''
+    Mission control screen tells user end target
+    '''
     pass
 
 class ClientApp(App):
@@ -153,11 +171,13 @@ class ClientApp(App):
         gs = GameScreen(name="game_screen")
         pts = PreTutorialScreen(name="pretutorial_screen")
         ts = TutorialScreen(name="tutorial_screen")
+        mcs = MissionControlScreen(name="missioncontrol_screen")
 
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
         self.screen_manager.add_widget(ts)
         self.screen_manager.add_widget(gs)
+        self.screen_manager.add_widget(mcs)
 
         #parent = Widget() #this is an empty holder for buttons, etc
         #app = Game()        
