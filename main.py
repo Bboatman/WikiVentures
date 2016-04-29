@@ -16,6 +16,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.image import AsyncImage
 from kivy.graphics import Color, Rectangle
 from kivy.uix.button import Button
+from kivy.core.text import LabelBase
 
 from enemyShip import *
 from spaceship import *
@@ -28,6 +29,11 @@ from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
 Window.clearcolor = (0,0,0,1.0) #this fixes drawing issues on some phones
 
+LabelBase.register(name="astron boy",  
+                   fn_regular="./assets/astron boy.ttf")
+
+LabelBase.register(name="joystix monospace",  
+                   fn_regular="./assets/joystix monospace.ttf")
  
 class Game(Widget):
     '''
