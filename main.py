@@ -122,6 +122,9 @@ class GameScreen(Screen):
             size_hint=(None, None))
         self.floatlayout = FloatLayout()
 
+        endGoal = Label(text = 'Find your way to the' + self.game.destination + 'wiki system.' , size_hint = (0.1, 0.1))
+        self.floatlayout.add_widget(endGoal)
+
         self.game.system.star.setPos(self.scrollview.width/2, self.scrollview.height/2)
         self.game.player.pos = self.game.system.star.pos
         self.game.enemy.pos = (self.game.player.pos[0]-200, self.game.player.pos[1]-200)
@@ -138,28 +141,32 @@ class GameScreen(Screen):
     def scroll_to_player_cb(self, player, pos):
         #self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
-
+            
 class PreTutorialScreen(Screen):
     '''
-    Gives player option to read directions or to play gmae
+    Gives player option to read directions or to play game;
+    Full details in client.kv
     '''
     pass
 
 class TutorialScreen(Screen):
     '''
-    Tutuorial screen displays directions for game play
+    Tutuorial screen displays directions for game play;
+    Full details in client.kv
     '''
     pass
 
 class OptionsPopup(Popup):
     '''
-    Options menu
+    Options menu;
+    Full details in client.kv
     '''
     pass
 
 class MissionControlScreen(Screen):
     '''
-    Mission control screen tells user end target
+    Mission control screen tells user end target;
+    Full details in client.kv
     '''
     pass
 

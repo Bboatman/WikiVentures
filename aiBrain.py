@@ -72,5 +72,3 @@ class subsumptionBehaviors:
         angle = random.randint(80, 100)
         return(speed, angle)
 """
-
-
