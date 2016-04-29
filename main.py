@@ -118,6 +118,7 @@ class GameScreen(Screen):
         self.game.system.star.setPos(self.floatlayout.width*50, self.floatlayout.width*50)
         self.game.player.setPos(self.floatlayout.width*50, self.floatlayout.height*50)
         self.game.enemy.setPos(self.floatlayout.width*50, self.floatlayout.height*50)
+        print self.floatlayout.width, self.floatlayout.height
 
         self.floatlayout.add_widget(self.game)
         self.scrollview.add_widget(self.floatlayout)
