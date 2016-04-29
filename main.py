@@ -54,6 +54,7 @@ class Game(Widget):
         self.add_widget(self.enemy)
 
         Clock.schedule_interval(self.update, 1.0/60.0)
+
  
     def update(self,dt):
         '''
@@ -96,18 +97,25 @@ class MenuScreen(Screen):
 
 class GameScreen(Screen):
     def on_enter(self):
-        self.scrollview = ScrollView(size=(100000, 1000000))
+        self.scrollview = ScrollView()
         #self.scrollview.viewport_size = (Window.width, Window.height)
+        self.floatlayout = FloatLayout(
+            size=(100000, 100000),
+            size_hint=(None, None))
+        #print self.floatlayout.size_hint
         self.game = Game()
 
+
         self.scrollview.add_widget(self.game)
+        self.floatlayout.add_widget(self.scrollview)
+
         self.scrollview.do_scroll = True
-        self.add_widget(self.scrollview)
+        self.add_widget(self.floatlayout)
         Window.show_cursor = False
         self.game.player.bind(pos=self.scroll_to_player_cb)
 
     def scroll_to_player_cb(self, player, pos):
-        self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
+        #self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
 
 
