@@ -14,9 +14,9 @@ class Collider(Widget):
 			#self.magnitude = order * 100 + 100
 			player_magnitude = math.sqrt((instance.parent.system.star.center_x - instance.x) ** 2 + (instance.parent.system.star.center_y  - instance.y) ** 2)
 			approx_index = math.floor(player_magnitude/100) - 1
-			approx_index = approx_index if approx_index > 0 else 0
-			less = approx_index - 1 if approx_index > 0 else 0
-			more = approx_index + 1 if approx_index < len(instance.parent.system.planets) else len(instance.parent.system.planets) - 1
+			approx_index = int(approx_index if approx_index > 0 else 0)
+			less = int(approx_index - 1 if approx_index > 0 else 0)
+			more = int(approx_index + 1 if approx_index < len(instance.parent.system.planets) else len(instance.parent.system.planets) - 1)
 			index_range = [less, approx_index, more]
 			for i in index_range:
 				if self.did_collide(instance, instance.parent.system.planets[i]):
