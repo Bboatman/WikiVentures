@@ -87,13 +87,12 @@ class Game(Widget):
         self.system.star.setPos(self.parent.parent.width/2, self.parent.parent.height/2)
         self.player.pos = self.system.star.pos
         self.enemy.pos = (self.player.pos[0]-200, self.player.pos[1]-200)
-        print self.parent.parent.size
-        print self.parent.parent.pos
-        print self.system.star.pos
-        print self.player.pos
-        print self.enemy.pos
-
-        print(self.path)
+        # print self.parent.parent.size
+        # print self.parent.parent.pos
+        # print self.system.star.pos
+        # print self.player.pos
+        # print self.enemy.pos
+        # print(self.path)
 
 
 class MenuScreen(Screen):
@@ -127,7 +126,7 @@ class GameScreen(Screen):
 
         self.scrollview.do_scroll = True        
         #Window.show_cursor = False
-        print self.scrollview.pos
+        # print self.scrollview.pos
         self.game.player.bind(pos=self.scroll_to_player_cb)
 
     def scroll_to_player_cb(self, player, pos):
