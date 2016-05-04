@@ -63,8 +63,8 @@ class Game(Widget):
         All of the game logic has its origin here
         dt - The change in time between updates of the game logic
         '''
-        self.system.update(dt)
         self.player.update(dt)
+        self.system.update(dt)
         self.controller.update(dt)
         #self.system.centerSystem()
         #self.parent.parent.scroll_to(self.player)
