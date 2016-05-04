@@ -134,10 +134,16 @@ class GameScreen(Screen):
         #Window.show_cursor = False
         # print self.scrollview.pos
         self.game.player.bind(pos=self.scroll_to_player_cb)
+        Clock.schedule_once(self.bump, 0.0001)
 
     def scroll_to_player_cb(self, player, pos):
         #self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
+
+    def bump(self, dt):
+        #here's a little bump on the player to force rendering of the screen, 
+        #it's scheduled to occur a millisecond after everything is loaded
+        self.game.player.x += 1
 
 class PreTutorialScreen(Screen):
     '''
@@ -173,11 +179,11 @@ class ClientApp(App):
         ClientApp.screen_manager = ScreenManager()
 
         ms = MenuScreen(name="menu_screen")
+        mcs = MissionControlScreen(name = "missioncontrol_screen")
         gs = GameScreen(name="game_screen")
         pts = PreTutorialScreen(name="pretutorial_screen")
         ts = TutorialScreen(name="tutorial_screen")
-        mcs = MissionControlScreen(name="missioncontrol_screen")
-
+ 
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
         self.screen_manager.add_widget(ts)

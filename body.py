@@ -23,8 +23,7 @@ class Body(Collidable):
         self.theta = randrange(0, 360)
         self.magnitude = order * 100 + 100
         self.speed = randrange(40, 41) * 150.0 / self.magnitude
-        
-        self.label = Label(text = title, pos = (self.center_x, self.center_y))
+        self.label = Label(text = title.replace(' ', '\n'), size = (self.width, self.height/4), font_size = 12)
         self.add_widget(self.label)
 
         self.size = 50 
@@ -47,7 +46,7 @@ class Body(Collidable):
     def setPos(self, xpos, ypos):
         self.x = xpos
         self.y = ypos
-        self.label.x = self.x
+        self.label.x = self.x - self.label.width/2
         self.label.y = self.y
 
 class Star(Collidable):

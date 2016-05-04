@@ -23,9 +23,10 @@ class Spaceship(Collidable):
     def __init__(self, **kwargs):
         super(Spaceship, self).__init__(**kwargs)
         self.size = 50
-        self.speed = 300
         self.dir_x = 0
         self.dir_y = 0
+        self.v_x = 0 
+        self.v_y = 0
         self.rotation = 0
         self.x = self.center_x
         self.y = self.center_y
@@ -35,8 +36,16 @@ class Spaceship(Collidable):
         self.y = ypos
 
     def update(self, dt):
-        self.x += (self.speed * self.dir_x) * dt
-        self.y += (self.speed * self.dir_y) * dt
+        if self.dir_x != 0 and self.v_x < 300:
+            self.v_x += self.dir_x * 10
+        elif self.dir_x == 0 and self.v_x != 0:
+            self.v_x -= abs(self.v_x)/self.v_x * 10
+        if self.dir_y != 0 and self.v_y < 300:
+            self.v_y += self.dir_y * 10
+        elif self.dir_y == 0 and self.v_y != 0:
+            self.v_y -= abs(self.v_y)/self.v_y * 10
+        self.x += self.v_x * dt
+        self.y += self.v_y * dt
 
     def warp_activate(self):
         self.warp = True
