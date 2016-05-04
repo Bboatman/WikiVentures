@@ -36,14 +36,14 @@ class Spaceship(Collidable):
         self.y = ypos
 
     def update(self, dt):
-        if self.dir_x != 0 and self.v_x < 300:
+        if self.dir_x == 0 and abs(self.v_x) > 0:
+            self.v_x  -= abs(self.v_x)/self.v_x * 10
+        elif abs(self.v_x) < 300:
             self.v_x += self.dir_x * 10
-        elif self.dir_x == 0 and self.v_x != 0:
-            self.v_x -= abs(self.v_x)/self.v_x * 10
-        if self.dir_y != 0 and self.v_y < 300:
+        if self.dir_y == 0 and abs(self.v_y) > 0:
+            self.v_y  -= abs(self.v_y)/self.v_y * 10
+        elif abs(self.v_y) < 300:
             self.v_y += self.dir_y * 10
-        elif self.dir_y == 0 and self.v_y != 0:
-            self.v_y -= abs(self.v_y)/self.v_y * 10
         self.x += self.v_x * dt
         self.y += self.v_y * dt
 
