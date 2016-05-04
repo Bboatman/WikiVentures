@@ -18,7 +18,6 @@ from kivy.graphics import Color, Rectangle
 from kivy.uix.button import Button
 from kivy.core.text import LabelBase
 
-from enemyShip import *
 from spaceship import *
 from system import *
 from controller import *
@@ -55,10 +54,6 @@ class Game(Widget):
         self.controller = Controller(self.player)
         self.add_widget(self.player)
 
-        self.enemy = Enemy()
-        #self.enemy.setPos(Window.width/2, Window.width/2)
-        self.add_widget(self.enemy)
-
         Clock.schedule_interval(self.update, 1.0/60.0)
 
  
@@ -69,7 +64,6 @@ class Game(Widget):
         dt - The change in time between updates of the game logic
         '''
         self.system.update(dt)
-        self.enemy.update(dt)
         self.player.update(dt)
         self.controller.update(dt)
         #self.system.centerSystem()
@@ -82,7 +76,6 @@ class Game(Widget):
         if title == 'notta_page':
             jump_back = -2 if len(self.path) > 1 else -1
             self.system = System(self.path[jump_back])
-            #print('jump_back')
             if jump_back < -1: self.path.pop(-1)
         else:
             self.system = System(title) 
@@ -92,12 +85,6 @@ class Game(Widget):
             self.add_widget(planet)
         self.system.star.setPos(self.parent.parent.width/2, self.parent.parent.height/2)
         self.player.pos = self.system.star.pos
-        self.enemy.pos = (self.player.pos[0]-200, self.player.pos[1]-200)
-        # print self.parent.parent.size
-        # print self.parent.parent.pos
-        # print self.system.star.pos
-        # print self.player.pos
-        # print self.enemy.pos
         print(self.path)
 
 
@@ -124,15 +111,13 @@ class GameScreen(Screen):
 
         self.game.system.star.setPos(self.scrollview.width/2, self.scrollview.height/2)
         self.game.player.pos = self.game.system.star.pos
-        self.game.enemy.pos = (self.game.player.pos[0]-200, self.game.player.pos[1]-200)
-
+        
         self.floatlayout.add_widget(self.game)
         self.scrollview.add_widget(self.floatlayout)
         self.add_widget(self.scrollview)
 
         self.scrollview.do_scroll = True        
         #Window.show_cursor = False
-        # print self.scrollview.pos
         self.game.player.bind(pos=self.scroll_to_player_cb)
         Clock.schedule_once(self.bump, 0.0001)
 
