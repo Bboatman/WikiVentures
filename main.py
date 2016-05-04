@@ -49,6 +49,8 @@ class Game(Widget):
         self.player = Spaceship()
         #self.player.setPos(Window.width/4, Window.height/4)
         self.add_widget(self.system.star)
+        # self.endGoal.pos(self.player.x, self.player.y)
+
         for planet in self.system.planets:
             self.add_widget(planet)
 
@@ -105,11 +107,8 @@ class MenuScreen(Screen):
     '''
     Opening menu screen
     '''
-    options_popup = ObjectProperty(None)
-
-    def show_popup(self):
-        self.options_popup = OptionsPopup()
-        self.options_popup.open()
+    def on_off(self):
+        music.sound.stop()
 
 class GameScreen(Screen):
     '''
@@ -122,13 +121,12 @@ class GameScreen(Screen):
             size_hint=(None, None))
         self.floatlayout = FloatLayout()
 
-        endGoal = Label(text = 'Find your way to the' + self.game.destination + 'wiki system.' , size_hint = (0.1, 0.1))
-        self.floatlayout.add_widget(endGoal)
-
         self.game.system.star.setPos(self.scrollview.width/2, self.scrollview.height/2)
         self.game.player.pos = self.game.system.star.pos
         self.game.enemy.pos = (self.game.player.pos[0]-200, self.game.player.pos[1]-200)
 
+        # self.endGoal = Label(text = 'Find your way to the' + self.game.destination + 'wiki system.', size_hint = (0.1, 0.1))
+        # self.add_widget(endGoal)
         self.floatlayout.add_widget(self.game)
         self.scrollview.add_widget(self.floatlayout)
         self.add_widget(self.scrollview)

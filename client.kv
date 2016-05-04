@@ -75,9 +75,9 @@
                     Button:
                         halign: "center"
                         valign: "middle"
-                        text: "Options"
+                        text: "Music: On/Off"
                         font_name: "joystix monospace"
-                        on_press: root.show_popup(Options)
+                        on_press: on_off
 
 <PreTutorialScreen>
     AnchorLayout:
@@ -173,25 +173,3 @@
                 font_size: 12
                 halign: "center"
                 on_press: root.manager.current = "game_screen"
-
-<OptionsPopup>
-    title: "Options"
-    size_hint: 0.75, 0.75
-
-    BoxLayout:
-        orientation: "vertical"
-        spacing: 20
-
-        GridLayout:
-            size_hint_y: 0.8
-            cols: 2
-
-        AnchorLayout:
-            anchor_x: "center"
-            size_hint: 1, 0.25
-
-            Button:
-                size_hint_x: 0.5
-                font_name: "joystix monospace"
-                text: "Save changes"
-                on_press: root.dismiss()
