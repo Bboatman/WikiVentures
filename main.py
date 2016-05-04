@@ -40,10 +40,10 @@ class Game(Widget):
     '''
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
-        self.source = 'Macalester College'
+        self.source = 'America'
         self.destination = 'Steve Jobs'
         self.path = [self.source]
-        self.system = System('Macalester College')
+        self.system = System(self.source)
         self.collider = Collider()
         self.player = Spaceship()
         #self.player.setPos(Window.width/4, Window.height/4)
