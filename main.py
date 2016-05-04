@@ -17,8 +17,8 @@ from kivy.uix.image import AsyncImage
 from kivy.graphics import Color, Rectangle
 from kivy.uix.button import Button
 from kivy.core.text import LabelBase
+from kivy.core.audio import SoundLoader
 
-from enemyShip import *
 from spaceship import *
 from system import *
 from controller import *
@@ -34,6 +34,8 @@ LabelBase.register(name="astron boy",
 
 LabelBase.register(name="joystix monospace",  
                    fn_regular="./assets/joystix monospace.ttf")
+
+sound = SoundLoader.load('./assets/wikiverseTune.wav')
  
 class Game(Widget):
     '''
@@ -49,17 +51,11 @@ class Game(Widget):
         self.player = Spaceship()
         #self.player.setPos(Window.width/4, Window.height/4)
         self.add_widget(self.system.star)
-        # self.endGoal.pos(self.player.x, self.player.y)
-
         for planet in self.system.planets:
             self.add_widget(planet)
 
         self.controller = Controller(self.player)
         self.add_widget(self.player)
-
-        self.enemy = Enemy()
-        #self.enemy.setPos(Window.width/2, Window.width/2)
-        self.add_widget(self.enemy)
 
         Clock.schedule_interval(self.update, 1.0/60.0)
 
@@ -70,9 +66,8 @@ class Game(Widget):
         All of the game logic has its origin here
         dt - The change in time between updates of the game logic
         '''
-        self.system.update(dt)
-        self.enemy.update(dt)
         self.player.update(dt)
+        self.system.update(dt)
         self.controller.update(dt)
         #self.system.centerSystem()
         #self.parent.parent.scroll_to(self.player)
@@ -84,7 +79,6 @@ class Game(Widget):
         if title == 'notta_page':
             jump_back = -2 if len(self.path) > 1 else -1
             self.system = System(self.path[jump_back])
-            #print('jump_back')
             if jump_back < -1: self.path.pop(-1)
         else:
             self.system = System(title) 
@@ -94,12 +88,6 @@ class Game(Widget):
             self.add_widget(planet)
         self.system.star.setPos(self.parent.parent.width/2, self.parent.parent.height/2)
         self.player.pos = self.system.star.pos
-        self.enemy.pos = (self.player.pos[0]-200, self.player.pos[1]-200)
-        # print self.parent.parent.size
-        # print self.parent.parent.pos
-        # print self.system.star.pos
-        # print self.player.pos
-        # print self.enemy.pos
         print(self.path)
 
 
@@ -107,8 +95,6 @@ class MenuScreen(Screen):
     '''
     Opening menu screen
     '''
-    def on_off(self):
-        music.sound.stop()
 
 class GameScreen(Screen):
     '''
@@ -123,48 +109,40 @@ class GameScreen(Screen):
 
         self.game.system.star.setPos(self.scrollview.width/2, self.scrollview.height/2)
         self.game.player.pos = self.game.system.star.pos
-        self.game.enemy.pos = (self.game.player.pos[0]-200, self.game.player.pos[1]-200)
-
-        # self.endGoal = Label(text = 'Find your way to the' + self.game.destination + 'wiki system.', size_hint = (0.1, 0.1))
-        # self.add_widget(endGoal)
+        
         self.floatlayout.add_widget(self.game)
         self.scrollview.add_widget(self.floatlayout)
         self.add_widget(self.scrollview)
 
         self.scrollview.do_scroll = True        
         #Window.show_cursor = False
-        # print self.scrollview.pos
         self.game.player.bind(pos=self.scroll_to_player_cb)
+        Clock.schedule_once(self.bump, 0.0001)
 
     def scroll_to_player_cb(self, player, pos):
         #self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
-            
+
+    def bump(self, dt):
+        #here's a little bump on the player to force rendering of the screen, 
+        #it's scheduled to occur a millisecond after everything is loaded
+        self.game.player.x += 1
+
 class PreTutorialScreen(Screen):
     '''
-    Gives player option to read directions or to play game;
-    Full details in client.kv
+    Gives player option to read directions or to play gmae
     '''
     pass
 
 class TutorialScreen(Screen):
     '''
-    Tutuorial screen displays directions for game play;
-    Full details in client.kv
-    '''
-    pass
-
-class OptionsPopup(Popup):
-    '''
-    Options menu;
-    Full details in client.kv
+    Tutuorial screen displays directions for game play
     '''
     pass
 
 class MissionControlScreen(Screen):
     '''
-    Mission control screen tells user end target;
-    Full details in client.kv
+    Mission control screen tells user end target
     '''
     pass
 
@@ -178,16 +156,20 @@ class ClientApp(App):
         ClientApp.screen_manager = ScreenManager()
 
         ms = MenuScreen(name="menu_screen")
+        mcs = MissionControlScreen(name = "missioncontrol_screen")
         gs = GameScreen(name="game_screen")
         pts = PreTutorialScreen(name="pretutorial_screen")
         ts = TutorialScreen(name="tutorial_screen")
-        mcs = MissionControlScreen(name="missioncontrol_screen")
-
+ 
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
         self.screen_manager.add_widget(ts)
         self.screen_manager.add_widget(gs)
         self.screen_manager.add_widget(mcs)
+        
+        sound.loop = True
+        if sound:
+            sound.play()
 
         #parent = Widget() #this is an empty holder for buttons, etc
         #app = Game()        

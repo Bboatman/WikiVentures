@@ -1,6 +1,7 @@
 import math
 from kivy.uix.widget import Widget
 from random import randrange
+from random import randint
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
 from kivy.properties import BooleanProperty
@@ -17,17 +18,19 @@ class Body(Collidable):
     size = NumericProperty(0)
     x = NumericProperty(0)
     y = NumericProperty(0)
+    imgPath = StringProperty("")
 
     def __init__(self, title, order, **kwargs):
         super(Body, self).__init__( **kwargs)
         self.theta = randrange(0, 360)
         self.magnitude = order * 100 + 100
         self.speed = randrange(40, 41) * 150.0 / self.magnitude
-        
-        self.label = Label(text = title, pos = (self.center_x, self.center_y))
+        self.label = Label(text = title.replace(' ', '\n'), size = (self.width, self.height/4), font_size = 12)
         self.add_widget(self.label)
+        pickAsset = randrange(1, 6)
+        self.imgPath = "./assets/planet" + str(pickAsset) + ".png"
 
-        self.size = 50 
+        self.size = 80
 
     def update(self, starPos, dt):
         '''
@@ -47,13 +50,14 @@ class Body(Collidable):
     def setPos(self, xpos, ypos):
         self.x = xpos
         self.y = ypos
-        self.label.x = self.x
+        self.label.x = self.x - self.label.width/2
         self.label.y = self.y
 
 class Star(Collidable):
     size = NumericProperty(0)
     x = NumericProperty(0)
     y = NumericProperty(0)
+    imgPath = StringProperty("")
 
     def __init__(self, title, **kwargs):
         super(Star, self).__init__(**kwargs)
@@ -61,7 +65,9 @@ class Star(Collidable):
         self.label.font_size = 30
         self.label.pos = (self.center_x, self.center_y)
         self.add_widget(self.label)
-        self.size = 256
+        self.size = 240
+        pickAsset = randrange(1, 4)
+        self.imgPath = "./assets/sun" + str(pickAsset) + ".png"
 
     def setPos(self, xpos, ypos):
         self.x = xpos

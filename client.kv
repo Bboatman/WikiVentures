@@ -7,7 +7,7 @@
         Rectangle:
             pos: (self.x, self.y)
             size: (self.size, self.size)
-            source: './assets/big_planet.png'
+            source: self.imgPath
             Color: 
                 rgb: (255, 255, 255)
 
@@ -17,9 +17,10 @@
         Rectangle:
             pos: (self.x, self.y)
             size: (self.size, self.size)
-            source: './assets/planet.png'
+            source: self.imgPath
             Color: 
                 rgb: (255, 255, 255)
+
 
 <Enemy>:
     size: 32,32
@@ -36,6 +37,28 @@
             pos: (self.x, self.y)
             size: (self.size, self.size)
             source: './assets/spaceship_moving.gif'
+
+<OptionsPopup>
+    title: "Options"
+    size_hint: 0.75, 0.75
+
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 20
+
+        GridLayout:
+            size_hint_y: 0.8
+            cols: 2
+
+        AnchorLayout:
+            anchor_x: "center"
+            size_hint: 1, 0.25
+
+            Button:
+                size_hint_x: 0.5
+                font_name: "joystix monospace"
+                text: "Save changes"
+                on_press: root.dismiss()
 
 <MenuScreen>
     AnchorLayout:
