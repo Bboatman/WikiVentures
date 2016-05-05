@@ -109,26 +109,30 @@ class GameScreen(Screen):
     Screen where game is played
     '''
     def on_enter(self):
-        self.game = Game()
-        self.scrollview = ScrollView(
-            size=(50000, 50000),
-            size_hint=(None, None))
-        self.floatlayout = FloatLayout()
+        try:
+            self.game.remake_system(self.game.source)
+            self.game.path = []
+        except AttributeError:
+            self.game = Game()
+            self.scrollview = ScrollView(
+                size=(50000, 50000),
+                size_hint=(None, None))
+            self.floatlayout = FloatLayout()
 
-        self.game.system.star.setPos(self.scrollview.width/2, self.scrollview.height/2)
-        self.game.player.pos = self.game.system.star.pos
-        
-        self.floatlayout.add_widget(self.game)
-        self.scrollview.add_widget(self.floatlayout)
-        self.add_widget(self.scrollview)
+            self.game.system.star.setPos(self.scrollview.width/2, self.scrollview.height/2)
+            self.game.player.pos = self.game.system.star.pos
+            
+            self.floatlayout.add_widget(self.game)
+            self.scrollview.add_widget(self.floatlayout)
+            self.add_widget(self.scrollview)
 
-        self.scrollview.do_scroll = True       
-        self.game.player.bind(pos=self.scroll_to_player_cb)
-        Clock.schedule_once(self.bump, 0.0001)
+            self.scrollview.do_scroll = True       
+            self.game.player.bind(pos=self.scroll_to_player_cb)
+            Clock.schedule_once(self.bump, 0.0001)
 
-        self.endDestination = Label(pos = (Window.width/4-200, Window.height/4-200),
-            text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
-        self.floatlayout.add_widget(self.endDestination)
+            self.endDestination = Label(pos = (Window.width/4-200, Window.height/4-200),
+                text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
+            self.floatlayout.add_widget(self.endDestination)
 
     def scroll_to_player_cb(self, player, pos):
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
