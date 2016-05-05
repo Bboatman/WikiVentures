@@ -17,7 +17,13 @@ from kivy.uix.image import AsyncImage
 from kivy.graphics import Color, Rectangle
 from kivy.uix.button import Button
 from kivy.core.text import LabelBase
-from wikipedia import page
+
+'''
+Normally 'from wikipedia import page' should be uncommented, but
+for the demo we're using from testPages import page instead
+'''
+#from wikipedia import page
+from testPages import page
 
 from spaceship import *
 from system import *
@@ -41,8 +47,8 @@ class Game(Widget):
     '''
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
-        self.source = 'America'
-        self.destination = 'Steve Jobs'
+        self.source = 'Pickled Cucumber'
+        self.destination = 'Jesus'
         self.path = [self.source]
         self.system = System(page(self.source))
         self.collider = Collider()
@@ -76,7 +82,7 @@ class Game(Widget):
         self.remove_widget(self.system.star)
         if title == 'notta_page':
             jump_back = -2 if len(self.path) > 1 else -1
-            self.system = System(self.path[jump_back])
+            self.system = System(page(self.path[jump_back]))
             if jump_back < -1: self.path.pop(-1)
         else:
             self.system = System(page(title)) 
@@ -86,7 +92,6 @@ class Game(Widget):
             self.add_widget(planet)
         self.system.star.setPos(self.parent.parent.width/2, self.parent.parent.height/2)
         self.player.pos = self.system.star.pos
-        print(self.path)
 
 
 class MenuScreen(Screen):

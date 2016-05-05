@@ -18,7 +18,6 @@ class System(object):
             self.planets.append(Body(name, i))
             i += 1
         
-
     def update(self, dt):
         for planet in self.planets:
             planet.update((self.star.x + self.star.size//2, self.star.y+ self.star.size//2), dt)
