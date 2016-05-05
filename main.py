@@ -114,7 +114,7 @@ class GameScreen(Screen):
     def on_enter(self):
         try:
             self.game.remake_system(self.game.source)
-            self.game.path = []
+            self.game.path = [self.game.source]
         except AttributeError:
             self.game = Game()
             self.scrollview = ScrollView(
