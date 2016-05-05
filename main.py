@@ -87,6 +87,9 @@ class Game(Widget):
             self.system = System(page(self.path[jump_back]))
             if jump_back < -1: self.path.pop(-1)
         elif title == self.destination:
+            '''
+            The game widget's greatx2 grandparent is the Screen manager.
+            '''
             self.parent.parent.parent.parent.current = 'winning_screen'
         else:
             self.system = System(page(title)) 
@@ -127,8 +130,19 @@ class GameScreen(Screen):
         Clock.schedule_once(self.bump, 0.0001)
 
         self.endDestination = Label(pos = (Window.width/4-200, Window.height/4-200),
-            text = 'Find your way to the\n"'+self.game.destination+'" wiki system, Cadet.')
+            text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
+
         self.floatlayout.add_widget(self.endDestination)
+        
+        '''
+        self.summaryButton = Button(
+            pos = (Window.width-50, Window.height-50),
+            text = 'Page Summary')
+        self.floatlayout.add_widget(self.summaryButton)
+        '''
+
+
+
 
     def scroll_to_player_cb(self, player, pos):
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
@@ -139,6 +153,15 @@ class GameScreen(Screen):
         it's scheduled to occur a millisecond after everything is loaded
         '''
         self.game.player.x += 1
+
+    page_summary_popup = ObjectProperty(None)
+
+    def show_page_summary(self):
+        self.page_summary_popup = PageSummaryPopup()
+        self.page_summary_popup.open()
+
+class PageSummaryPopup(Popup):
+    pass
 
 class PreTutorialScreen(Screen):
     '''
