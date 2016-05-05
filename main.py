@@ -40,13 +40,12 @@ class Game(Widget):
     '''
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
-        self.source = 'Macalester College'
+        self.source = 'America'
         self.destination = 'Steve Jobs'
         self.path = [self.source]
         self.system = System('Macalester College')
         self.collider = Collider()
         self.player = Spaceship()
-        #self.player.setPos(Window.width/4, Window.height/4)
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
@@ -66,8 +65,6 @@ class Game(Widget):
         self.player.update(dt)
         self.system.update(dt)
         self.controller.update(dt)
-        #self.system.centerSystem()
-        #self.parent.parent.scroll_to(self.player)
 
     def remake_system(self, title = 'notta_page'):
         for planet in self.system.planets:
@@ -116,18 +113,18 @@ class GameScreen(Screen):
         self.scrollview.add_widget(self.floatlayout)
         self.add_widget(self.scrollview)
 
-        self.scrollview.do_scroll = True        
-        #Window.show_cursor = False
+        self.scrollview.do_scroll = True       
         self.game.player.bind(pos=self.scroll_to_player_cb)
         Clock.schedule_once(self.bump, 0.0001)
 
     def scroll_to_player_cb(self, player, pos):
-        #self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
 
     def bump(self, dt):
-        #here's a little bump on the player to force rendering of the screen, 
-        #it's scheduled to occur a millisecond after everything is loaded
+        '''
+        here's a little bump on the player to force rendering of the screen, 
+        it's scheduled to occur a millisecond after everything is loaded
+        '''
         self.game.player.x += 1
 
 class PreTutorialScreen(Screen):
