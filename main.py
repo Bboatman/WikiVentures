@@ -24,8 +24,8 @@ from kivy.config import Config
 Normally 'from wikipedia import page' should be uncommented, but
 for the demo we're using from testPages import page instead
 '''
-from wikipedia import page
-#from testPages import page
+#from wikipedia import page
+from testPages import page
 
 from spaceship import *
 from system import *

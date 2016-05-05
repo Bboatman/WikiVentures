@@ -18,7 +18,6 @@ class Collider(Widget):
             less = int(approx_index - 1 if approx_index > 0 else 0)
             more = int(approx_index + 1 if (approx_index + 1) < len(instance.parent.system.planets) else len(instance.parent.system.planets) - 1)
             index_range = [less, approx_index, more]
-            print("Near Planets: " + instance.parent.system.planets[index_range[0]].label.text + ', ' + instance.parent.system.planets[index_range[1]].label.text + ', ' + instance.parent.system.planets[index_range[2]].label.text)
             for i in index_range:
                 try:
                     if self.did_collide(instance, instance.parent.system.planets[i]):
