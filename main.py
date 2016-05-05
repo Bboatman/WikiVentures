@@ -17,6 +17,7 @@ from kivy.uix.image import AsyncImage
 from kivy.graphics import Color, Rectangle
 from kivy.uix.button import Button
 from kivy.core.text import LabelBase
+from wikipedia import page
 
 from spaceship import *
 from system import *
@@ -43,7 +44,7 @@ class Game(Widget):
         self.source = 'America'
         self.destination = 'Steve Jobs'
         self.path = [self.source]
-        self.system = System(self.source)
+        self.system = System(page(self.source))
         self.collider = Collider()
         self.player = Spaceship()
         #self.player.setPos(Window.width/4, Window.height/4)
@@ -78,7 +79,7 @@ class Game(Widget):
             self.system = System(self.path[jump_back])
             if jump_back < -1: self.path.pop(-1)
         else:
-            self.system = System(title) 
+            self.system = System(page(title)) 
             self.path.append(title)       
         self.add_widget(self.system.star)
         for planet in self.system.planets:
