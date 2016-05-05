@@ -24,7 +24,7 @@ from kivy.config import Config
 Normally 'from wikipedia import page' should be uncommented, but
 for the demo we're using from testPages import page instead
 '''
-#from wikipedia impoert page
+#from wikipedia import page
 from testPages import page
 
 from spaceship import *
@@ -86,6 +86,8 @@ class Game(Widget):
             jump_back = -2 if len(self.path) > 1 else -1
             self.system = System(page(self.path[jump_back]))
             if jump_back < -1: self.path.pop(-1)
+        elif title == self.destination:
+            self.parent.parent.parent.parent.current = 'winning_screen'
         else:
             self.system = System(page(title)) 
             self.path.append(title)       
@@ -156,6 +158,13 @@ class MissionControlScreen(Screen):
     '''
     pass
 
+class WinningScreen(Screen):
+    '''
+    Winning screen displays when you reach the destination page
+
+    '''
+    pass
+
 class ClientApp(App):
     screen_manager = ObjectProperty(None)
     ''' 
@@ -170,12 +179,14 @@ class ClientApp(App):
         gs = GameScreen(name='game_screen')
         pts = PreTutorialScreen(name='pretutorial_screen')
         ts = TutorialScreen(name='tutorial_screen')
+        ws = WinningScreen(name='winning_screen')
  
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
         self.screen_manager.add_widget(ts)
         self.screen_manager.add_widget(gs)
         self.screen_manager.add_widget(mcs)
+        self.screen_manager.add_widget(ws)
         
         sound.loop = True
         if sound:

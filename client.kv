@@ -197,3 +197,34 @@
                 font_size: 12
                 halign: 'center'
                 on_press: root.manager.current = 'game_screen'
+
+<WinningScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        size_hint_y: 0.8
+
+        BoxLayout:
+            size_hint: 0.7, 0.7
+            orientation: 'vertical'
+            spacing: 10
+
+            Label:
+                text_size: root.width, None
+                size: self.texture_size
+                font_name: 'joystix monospace'
+                text: "YOU WIN!!!!!!!!!!!!!!!!!!!!!\n GJ."
+                valign: 'middle'
+                halign: 'center'
+                font_size: 20
+                padding: 10, 10
+
+            Button:
+                text_size: root.width, None
+                size: self.texture_size
+                font_name: 'joystix monospace'
+                text: "Back to Menu Screen"
+                font_size: 12
+                halign: 'center'
+                on_press: root.manager.current = 'menu_screen'
+
+
