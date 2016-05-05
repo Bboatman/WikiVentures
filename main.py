@@ -17,6 +17,8 @@ from kivy.uix.image import AsyncImage
 from kivy.graphics import Color, Rectangle
 from kivy.uix.button import Button
 from kivy.core.text import LabelBase
+from kivy.core.audio import SoundLoader
+from kivy.config import Config
 
 '''
 Normally 'from wikipedia import page' should be uncommented, but
@@ -31,20 +33,22 @@ from controller import *
 from collider import Collider
 from music import *
 
-from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
 Window.clearcolor = (0,0,0,1.0) #this fixes drawing issues on some phones
 
-LabelBase.register(name="astron boy",  
-                   fn_regular="./assets/astron boy.ttf")
+LabelBase.register(name='astron boy',  
+                   fn_regular='./assets/astron boy.ttf')
 
-LabelBase.register(name="joystix monospace",  
-                   fn_regular="./assets/joystix monospace.ttf")
+LabelBase.register(name='joystix monospace',  
+                   fn_regular='./assets/joystix monospace.ttf')
+
+sound = SoundLoader.load('./assets/wikiverseTune.wav')
  
 class Game(Widget):
     '''
     The main widget class that contains the game, the game loop and runs everything
     '''
+
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
         self.source = 'Pickled Cucumber'
@@ -53,8 +57,8 @@ class Game(Widget):
         self.system = System(page(self.source))
         self.collider = Collider()
         self.player = Spaceship()
-        #self.player.setPos(Window.width/4, Window.height/4)
         self.add_widget(self.system.star)
+
         for planet in self.system.planets:
             self.add_widget(planet)
 
@@ -70,11 +74,10 @@ class Game(Widget):
         All of the game logic has its origin here
         dt - The change in time between updates of the game logic
         '''
+        
         self.player.update(dt)
         self.system.update(dt)
         self.controller.update(dt)
-        #self.system.centerSystem()
-        #self.parent.parent.scroll_to(self.player)
 
     def remake_system(self, title = 'notta_page'):
         for planet in self.system.planets:
@@ -98,11 +101,7 @@ class MenuScreen(Screen):
     '''
     Opening menu screen
     '''
-    options_popup = ObjectProperty(None)
-
-    def show_popup(self):
-        self.options_popup = OptionsPopup()
-        self.options_popup.open()
+    pass
 
 class GameScreen(Screen):
     '''
@@ -127,6 +126,10 @@ class GameScreen(Screen):
         self.game.player.bind(pos=self.scroll_to_player_cb)
         Clock.schedule_once(self.bump, 0.0001)
 
+        self.endDestination = Label(pos = (Window.width/4-200, Window.height/4-200),
+            text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
+        self.floatlayout.add_widget(self.endDestination)
+
     def scroll_to_player_cb(self, player, pos):
         #self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
@@ -148,12 +151,6 @@ class TutorialScreen(Screen):
     '''
     pass
 
-class OptionsPopup(Popup):
-    '''
-    Options menu
-    '''
-    pass
-
 class MissionControlScreen(Screen):
     '''
     Mission control screen tells user end target
@@ -169,17 +166,21 @@ class ClientApp(App):
     def build(self):
         ClientApp.screen_manager = ScreenManager()
 
-        ms = MenuScreen(name="menu_screen")
-        mcs = MissionControlScreen(name = "missioncontrol_screen")
-        gs = GameScreen(name="game_screen")
-        pts = PreTutorialScreen(name="pretutorial_screen")
-        ts = TutorialScreen(name="tutorial_screen")
+        ms = MenuScreen(name='menu_screen')
+        mcs = MissionControlScreen(name = 'missioncontrol_screen')
+        gs = GameScreen(name='game_screen')
+        pts = PreTutorialScreen(name='pretutorial_screen')
+        ts = TutorialScreen(name='tutorial_screen')
  
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
         self.screen_manager.add_widget(ts)
         self.screen_manager.add_widget(gs)
         self.screen_manager.add_widget(mcs)
+        
+        sound.loop = True
+        if sound:
+            sound.play()
 
         #parent = Widget() #this is an empty holder for buttons, etc
         #app = Game()        

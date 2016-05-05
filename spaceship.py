@@ -9,10 +9,10 @@ from kivy.clock import Clock
 from collider import Collidable
 
 class Spaceship(Collidable):
-
     ''' 
     Player's spaceship used to travel to other planets.
     '''
+    
     size = NumericProperty(0)
     x = NumericProperty(0)
     y = NumericProperty(0)
