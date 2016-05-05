@@ -1,7 +1,6 @@
 import math
 from kivy.uix.widget import Widget
 from random import randrange
-from random import randint
 from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
 from kivy.properties import BooleanProperty
@@ -24,13 +23,13 @@ class Body(Collidable):
         super(Body, self).__init__( **kwargs)
         self.theta = randrange(0, 360)
         self.magnitude = order * 100 + 100
-        self.speed = randrange(40, 41) * 150.0 / self.magnitude
+        self.speed = randrange(38, 42) * 150.0 / self.magnitude
         self.label = Label(text = title, size = (self.width, self.height/4), font_size = 12)
         self.add_widget(self.label)
         pickAsset = randrange(1, 6)
         self.imgPath = './assets/planet' + str(pickAsset) + '.png'
 
-        self.size = 80
+        self.size = 90
 
     def update(self, starPos, dt):
         '''

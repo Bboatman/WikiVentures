@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
 '''
 pages need to have a title, contents, summary, and links
 
