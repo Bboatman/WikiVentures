@@ -1,22 +1,23 @@
-from wikipedia import page
-from subsystem import SubSystem
+from random import shuffle
+from body import Body, Star
 from kivy.core.window import Window
 from string import ascii_lowercase as LETTERS 
 
-class System(SubSystem):
-    def __init__(self, title):
-        self.page = page(title)
-        # self.sections = {}
-        # for letter in LETTERS:
-        #   links = []
-        #   for link in self.page.links:
-        #       if link[0].lower() == letter:
-        #           links.append(link)
-        #   if len(links) > 0:
-        #       self.sections[letter] = links
-        # planet_names = sorted(list(self.sections.keys()))
-        # i = 0
-        # for key in planet_names:
-        #   planet_names[i] = key + ' : ' + str(len(self.sections[key]))
-        #   i += 1
-        super(System, self).__init__(self.page.links, title)
+class System(object):
+    def __init__(self, page):
+        self.page = page
+        self.title = page.title
+        self.star = Star(page.title)
+        planet_names = page.links
+        shuffle(planet_names)
+        if len(planet_names) > 400:
+            planet_names = planet_names[:400]
+        self.planets = []
+        i = 1
+        for name in planet_names:
+            self.planets.append(Body(name, i))
+            i += 1
+        
+    def update(self, dt):
+        for planet in self.planets:
+            planet.update((self.star.x + self.star.size//2, self.star.y+ self.star.size//2), dt)
