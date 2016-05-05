@@ -86,6 +86,8 @@ class Game(Widget):
             jump_back = -2 if len(self.path) > 1 else -1
             self.system = System(page(self.path[jump_back]))
             if jump_back < -1: self.path.pop(-1)
+        elif title == self.destination:
+            self.parent.parent.parent.parent.current = 'winning_screen'
         else:
             self.system = System(page(title)) 
             self.path.append(title)       
@@ -120,8 +122,7 @@ class GameScreen(Screen):
         self.scrollview.add_widget(self.floatlayout)
         self.add_widget(self.scrollview)
 
-        self.scrollview.do_scroll = True        
-        #Window.show_cursor = False
+        self.scrollview.do_scroll = True       
         self.game.player.bind(pos=self.scroll_to_player_cb)
         Clock.schedule_once(self.bump, 0.0001)
 
@@ -130,12 +131,13 @@ class GameScreen(Screen):
         self.floatlayout.add_widget(self.endDestination)
 
     def scroll_to_player_cb(self, player, pos):
-        #self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
 
     def bump(self, dt):
-        #here's a little bump on the player to force rendering of the screen, 
-        #it's scheduled to occur a millisecond after everything is loaded
+        '''
+        here's a little bump on the player to force rendering of the screen, 
+        it's scheduled to occur a millisecond after everything is loaded
+        '''
         self.game.player.x += 1
 
 class PreTutorialScreen(Screen):
@@ -156,6 +158,13 @@ class MissionControlScreen(Screen):
     '''
     pass
 
+class WinningScreen(Screen):
+    '''
+    Winning screen displays when you reach the destination page
+    '''
+
+    pass
+
 class ClientApp(App):
     screen_manager = ObjectProperty(None)
     ''' 
@@ -170,12 +179,14 @@ class ClientApp(App):
         gs = GameScreen(name='game_screen')
         pts = PreTutorialScreen(name='pretutorial_screen')
         ts = TutorialScreen(name='tutorial_screen')
+        ws = WinningScreen(name='winning_screen')
  
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
         self.screen_manager.add_widget(ts)
         self.screen_manager.add_widget(gs)
         self.screen_manager.add_widget(mcs)
+        self.screen_manager.add_widget(ws)
         
         sound.loop = True
         if sound:

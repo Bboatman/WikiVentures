@@ -10,6 +10,10 @@
             source: self.imgPath
             Color: 
                 rgb: (255, 255, 255)
+    Label:
+        text_size: self.size
+        halign: 'center'
+        valign: 'middle'
 
 <Body>:
     size: 50, 50
@@ -20,15 +24,11 @@
             source: self.imgPath
             Color: 
                 rgb: (255, 255, 255)
+    Label:
+        text_size: self.size
+        halign: 'center'
+        valign: 'middle'
 
-
-<Enemy>:
-    size: 32,32
-    canvas:
-        Rectangle:
-            pos: (self.x, self.y)
-            size: (self.size, self.size)
-            source: './assets/spaceChicken.png'
 
 <Spaceship>:
     size: 64, 64
@@ -36,7 +36,7 @@
         Rectangle:
             pos: (self.x, self.y)
             size: (self.size, self.size)
-            source: './assets/spaceship_moving.gif'
+            source: './assets/spaceship.png'
 
 <Trail>:
     size: 5, 5
@@ -70,7 +70,8 @@
 <MenuScreen>
     AnchorLayout:
         anchor_x: 'center'
-
+        anchor_y: 'center'
+        
         BoxLayout:
             orientation: 'vertical'
             size_hint: (0.5, 1)
@@ -88,12 +89,12 @@
 
             AnchorLayout:
                 anchor_x: 'center'
-                size_hint_y: 0.6
+                anchor_y: 'center'
+                size_hint_y: 0.3
 
                 BoxLayout:
-                    size_hint: 0.5, 0.5
+                    size_hint: 0.3, 0.3
                     orientation: 'vertical'
-                    spacing: 10
 
                     Button:
                         halign: 'center'
@@ -105,6 +106,7 @@
 <PreTutorialScreen>
     AnchorLayout:
         anchor_x: 'center'
+        anchor_y: 'top'
         size_hint_y: 0.6
 
         BoxLayout:
@@ -118,29 +120,37 @@
                 size: self.texture_size
                 text: 'Welcome to the Wikiverse, Cadet! Most people call me Captain. Have you flown a spacecraft like this before?'
                 font_name: 'joystix monospace'
-                valign: 'bottom'
+                valign: 'middle'
                 halign: 'center'
                 bold: True
                 font_size: 16
                 padding: 10, 10
 
-            Button:
-                halign: 'center'
-                valign: 'middle'
-                font_name: 'joystix monospace'
-                text: "I'm an ace pilot."
-                on_press: root.manager.current = 'missioncontrol_screen'
+            AnchorLayout:
+                anchor_x: 'center'
+                anchor_y: 'center'
 
-            Button:
-                halign: 'center'
-                valign: 'middle'
-                font_name: 'joystix monospace'
-                text: 'Show me the ropes, Captain.'
-                on_press: root.manager.current = 'tutorial_screen'
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    Button:
+                        halign: 'center'
+                        valign: 'middle'
+                        font_name: 'joystix monospace'
+                        text: "I'm an ace pilot."
+                        on_press: root.manager.current = 'missioncontrol_screen'
+
+                    Button:
+                        halign: 'center'
+                        valign: 'middle'
+                        font_name: 'joystix monospace'
+                        text: 'Show me the ropes, Captain.'
+                        on_press: root.manager.current = 'tutorial_screen'
 
 <TutorialScreen>
     AnchorLayout:
         anchor_x: 'center'
+        anchor_y: 'top'
         size_hint_y: 0.6
 
         BoxLayout:
@@ -172,6 +182,7 @@
 <MissionControlScreen>
     AnchorLayout:
         anchor_x: 'center'
+        anchor_y: 'top'
         size_hint_y: 0.6
 
         BoxLayout:
@@ -197,3 +208,33 @@
                 font_size: 12
                 halign: 'center'
                 on_press: root.manager.current = 'game_screen'
+
+
+<WinningScreen>:
+    AnchorLayout:
+        anchor_x: 'center'
+        size_hint_y: 0.8
+
+        BoxLayout:
+            size_hint: 0.7, 0.7
+            orientation: 'vertical'
+            spacing: 10
+
+            Label:
+                text_size: root.width, None
+                size: self.texture_size
+                font_name: 'joystix monospace'
+                text: "YOU WIN!!!!!!!!!!!!!!!!!!!!!\n GJ."
+                valign: 'middle'
+                halign: 'center'
+                font_size: 20
+                padding: 10, 10
+
+            Button:
+                text_size: root.width, None
+                size: self.texture_size
+                font_name: 'joystix monospace'
+                text: "Back to Menu Screen"
+                font_size: 12
+                halign: 'center'
+                on_press: root.manager.current = 'menu_screen'
