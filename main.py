@@ -87,6 +87,9 @@ class Game(Widget):
             self.system = System(page(self.path[jump_back]))
             if jump_back < -1: self.path.pop(-1)
         elif title == self.destination:
+            '''
+            The game widget's greatx2 grandparent is the Screen manager.
+            '''
             self.parent.parent.parent.parent.current = 'winning_screen'
         else:
             self.system = System(page(title)) 
@@ -144,6 +147,15 @@ class GameScreen(Screen):
         '''
         self.game.player.x += 1
 
+    page_summary_popup = ObjectProperty(None)
+
+    def show_page_summary(self):
+        self.page_summary_popup = PageSummaryPopup()
+        self.page_summary_popup.open()
+
+class PageSummaryPopup(Popup):
+    pass
+
 class PreTutorialScreen(Screen):
     '''
     Gives player option to read directions or to play gmae
@@ -165,8 +177,8 @@ class MissionControlScreen(Screen):
 class WinningScreen(Screen):
     '''
     Winning screen displays when you reach the destination page
-
     '''
+
     pass
 
 class ClientApp(App):

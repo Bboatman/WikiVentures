@@ -52,7 +52,6 @@ class Spaceship(Collidable):
         self.y += self.v_y * dt
         self.frame_count += 1
 
-
     def warp_activate(self):
         self.warp = True
         Clock.schedule_once(self.warp_deactivate, 1)
