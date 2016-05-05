@@ -126,7 +126,7 @@ class GameScreen(Screen):
         Clock.schedule_once(self.bump, 0.0001)
 
         self.endDestination = Label(pos = (Window.width/4-200, Window.height/4-200),
-            text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
+            text = 'Find your way to the\n"'+self.game.destination+'" wiki system, Cadet.')
         self.floatlayout.add_widget(self.endDestination)
 
     def scroll_to_player_cb(self, player, pos):

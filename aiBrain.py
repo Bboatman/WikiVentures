@@ -20,11 +20,7 @@ class SubsumptionBrain:
         self.behaviors = []
         self.entity = enemyEntity
 
-        # self.add(subsumptionBehaviors.wanderWander)
-        # self.add(subsumptionBehaviors.fleet)
-        # self.add(subsumptionBehaviors.defend)
-        # self.add(subsumptionBehaviors.chase)
-        # self.add(subsumptionBehaviors.avoid)
+        self.add(subsumptionBehaviors.wanderWander)
 
     def add(self, behavior):
         '''
@@ -64,20 +60,8 @@ class SubsumptionBrain:
         self.entity.x += speed * math.cos(angle) * dt
         self.entity.y += speed * math.sin(angle) * dt
 
-# class subsumptionBehaviors:
-#     def avoid():
-#         return None
-
-#     def chase():
-#         return None
-
-#     def defend():
-#         return None
-
-#     def fleet():
-#         return None
-
-#     def wanderWander():
-#         speed = random.randint(80, 150)
-#         angle = random.randint(80, 100)
-#         return(speed, angle)
+class subsumptionBehaviors:
+    def wanderWander():
+        speed = random.randint(80, 150)
+        angle = random.randint(80, 100)
+        return(speed, angle)
