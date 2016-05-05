@@ -64,20 +64,20 @@ class SubsumptionBrain:
         self.entity.x += speed * math.cos(angle) * dt
         self.entity.y += speed * math.sin(angle) * dt
 
-class subsumptionBehaviors:
-    def avoid():
-        return None
+# class subsumptionBehaviors:
+#     def avoid():
+#         return None
 
-    def chase():
-        return None
+#     def chase():
+#         return None
 
-    def defend():
-        return None
+#     def defend():
+#         return None
 
-    def fleet():
-        return None
+#     def fleet():
+#         return None
 
-    def wanderWander():
-        speed = random.randint(80, 150)
-        angle = random.randint(80, 100)
-        return(speed, angle)
+#     def wanderWander():
+#         speed = random.randint(80, 150)
+#         angle = random.randint(80, 100)
+#         return(speed, angle)
