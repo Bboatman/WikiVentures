@@ -39,11 +39,11 @@
             source: './assets/spaceship_moving.gif'
 
 <OptionsPopup>
-    title: "Options"
+    title: 'Options'
     size_hint: 0.75, 0.75
 
     BoxLayout:
-        orientation: "vertical"
+        orientation: 'vertical'
         spacing: 20
 
         GridLayout:
@@ -51,148 +51,142 @@
             cols: 2
 
         AnchorLayout:
-            anchor_x: "center"
+            anchor_x: 'center'
             size_hint: 1, 0.25
 
             Button:
                 size_hint_x: 0.5
-                font_name: "joystix monospace"
-                text: "Save changes"
+                font_name: 'joystix monospace'
+                text: 'Save changes'
                 on_press: root.dismiss()
 
 <MenuScreen>
     AnchorLayout:
-        anchor_x: "center"
+        anchor_x: 'center'
 
         BoxLayout:
-            orientation: "vertical"
+            orientation: 'vertical'
             size_hint: (0.5, 1)
             spacing: 10
 
             Label:
                 size_hint_y: 0.4
-                text: "Welcome\n to\n WikiVentures!!!"
-                valign: "bottom"
-                halign: "center"
+                text: 'Welcome\n to\n WikiVentures!!!'
+                valign: 'bottom'
+                halign: 'center'
                 bold: True
                 font_size: 60
-                font_name: "astron boy"
+                font_name: 'astron boy'
                 padding: 0, 0
 
             AnchorLayout:
-                anchor_x: "center"
+                anchor_x: 'center'
                 size_hint_y: 0.6
 
                 BoxLayout:
                     size_hint: 0.5, 0.5
-                    orientation: "vertical"
+                    orientation: 'vertical'
                     spacing: 10
 
                     Button:
-                        halign: "center"
-                        valign: "middle"
-                        text: "Play"
-                        font_name: "joystix monospace"
-                        on_press: root.manager.current = "pretutorial_screen"
-
-                    Button:
-                        halign: "center"
-                        valign: "middle"
-                        text: "Music: On/Off"
-                        font_name: "joystix monospace"
-                        on_press: on_off
+                        halign: 'center'
+                        valign: 'middle'
+                        text: 'Play'
+                        font_name: 'joystix monospace'
+                        on_press: root.manager.current = 'pretutorial_screen'
 
 <PreTutorialScreen>
     AnchorLayout:
-        anchor_x: "center"
+        anchor_x: 'center'
         size_hint_y: 0.6
 
         BoxLayout:
             size_hint: 0.5, 0.5
-            orientation: "vertical"
+            orientation: 'vertical'
             spacing: 10
 
             Label:
                 size_hint_y: 0.4
                 text_size: root.width, None
                 size: self.texture_size
-                text: "Welcome to the Wikiverse, Cadet! Most people call me Captain. Have you flown a spacecraft like this before?"
-                font_name: "joystix monospace"
-                valign: "bottom"
-                halign: "center"
+                text: 'Welcome to the Wikiverse, Cadet! Most people call me Captain. Have you flown a spacecraft like this before?'
+                font_name: 'joystix monospace'
+                valign: 'bottom'
+                halign: 'center'
                 bold: True
                 font_size: 16
                 padding: 10, 10
 
             Button:
-                halign: "center"
-                valign: "middle"
-                font_name: "joystix monospace"
-                text: "I'm an ace pilot."
-                on_press: root.manager.current = "missioncontrol_screen"
+                halign: 'center'
+                valign: 'middle'
+                font_name: 'joystix monospace'
+                text: 'I'm an ace pilot.'
+                on_press: root.manager.current = 'missioncontrol_screen'
 
             Button:
-                halign: "center"
-                valign: "middle"
-                font_name: "joystix monospace"
-                text: "Show me the ropes, Captain."
-                on_press: root.manager.current = "tutorial_screen"
+                halign: 'center'
+                valign: 'middle'
+                font_name: 'joystix monospace'
+                text: 'Show me the ropes, Captain.'
+                on_press: root.manager.current = 'tutorial_screen'
 
 <TutorialScreen>
     AnchorLayout:
-        anchor_x: "center"
+        anchor_x: 'center'
         size_hint_y: 0.6
 
         BoxLayout:
             size_hint: 0.5, 0.5
-            orientation: "vertical"
+            orientation: 'vertical'
             spacing: 10
 
             Label:
                 text_size: root.width, None
                 size: self.texture_size
-                font_name: "joystix monospace"
+                font_name: 'joystix monospace'
                 text: "Here's a quick run down of this spacecraft. You can use arrow keys or 'wasd' keys to control your spacecraft's movements. For quick interplanetary travel, fly to a planet and press 'k', activating hypertext speed to explore a new wiki system within the Wikiverse. Need to travel back? No problem, press 'j' and the spacecraft will warp back to the previous system. You'll receive a mission soon. That's all for now, Cadet!"
-                valign: "bottom"
-                halign: "center"
+                valign: 'bottom'
+                halign: 'center'
                 font_size: 12
                 padding: 10, 10
 
             Button:
-                halign: "center"
-                valign: "middle"
-                font_name: "joystix monospace"
+                halign: 'center'
+                valign: 'middle'
+                font_name: 'joystix monospace'
                 size_hint_y: 0.1
                 text_size: root.width, None
                 size_hint: (0.75, 1)
                 font_size: 12
-                text: "Thanks, Captain.\n I'm ready for take off!"
-                on_press: root.manager.current = "missioncontrol_screen"
+                text: 'Thanks, Captain.\n I'm ready for take off!'
+                on_press: root.manager.current = 'missioncontrol_screen'
 
 <MissionControlScreen>
     AnchorLayout:
-        anchor_x: "center"
+        anchor_x: 'center'
         size_hint_y: 0.6
 
         BoxLayout:
             size_hint: 0.5, 0.5
-            orientation: "vertical"
+            orientation: 'vertical'
             spacing: 10
 
             Label:
                 text_size: root.width, None
                 size: self.texture_size
-                font_name: "joystix monospace"
-                text: "Cadet, we have an emergency! Unknown alien activity has been spotted. Unfortunately, this is uncharted territory, so we have very little information to give you. We'll beam you to the nearest wiki system according to our sources. Travel to various planets and systems to find the alien activity. Hint: Get creative! The more relevant the title of a planet is to your destination, the faster you'll find it."
-                valign: "middle"
-                halign: "center"
+                font_name: 'joystix monospace'
+                text: 'Cadet, we have an emergency! Unknown alien activity has been spotted. Unfortunately, this is uncharted territory, so we have very little information to give you. We'll beam you to the nearest wiki system according to our sources. Travel to various planets and systems to find the alien activity. Hint: Get creative! The more relevant the title of a planet is to your destination, the faster you'll find it.'
+                valign: 'middle'
+                halign: 'center'
                 font_size: 12
                 padding: 10, 10
 
             Button:
-                size_hint_x: 0.7
-                font_name: "joystix monospace"
-                text: "Understood.\n I'll do my best, Captain!"
+                text_size: root.width, None
+                size: self.texture_size
+                font_name: 'joystix monospace'
+                text: 'Understood. I'll do my best, Captain!'
                 font_size: 12
-                halign: "center"
-                on_press: root.manager.current = "game_screen"
+                halign: 'center'
+                on_press: root.manager.current = 'game_screen'

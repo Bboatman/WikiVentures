@@ -28,7 +28,7 @@ class Body(Collidable):
         self.label = Label(text = title.replace(' ', '\n'), size = (self.width, self.height/4), font_size = 12)
         self.add_widget(self.label)
         pickAsset = randrange(1, 6)
-        self.imgPath = "./assets/planet" + str(pickAsset) + ".png"
+        self.imgPath = './assets/planet' + str(pickAsset) + '.png'
 
         self.size = 80
 
@@ -57,7 +57,7 @@ class Star(Collidable):
     size = NumericProperty(0)
     x = NumericProperty(0)
     y = NumericProperty(0)
-    imgPath = StringProperty("")
+    imgPath = StringProperty('')
 
     def __init__(self, title, **kwargs):
         super(Star, self).__init__(**kwargs)
@@ -67,7 +67,7 @@ class Star(Collidable):
         self.add_widget(self.label)
         self.size = 240
         pickAsset = randrange(1, 4)
-        self.imgPath = "./assets/sun" + str(pickAsset) + ".png"
+        self.imgPath = './assets/sun' + str(pickAsset) + '.png'
 
     def setPos(self, xpos, ypos):
         self.x = xpos

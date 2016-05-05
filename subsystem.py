@@ -20,7 +20,5 @@ class SubSystem(object):
             planet.update((self.star.x + self.star.size//2, self.star.y+ self.star.size//2), dt)
         #self.star.label.text = self.title
     
-    """
-    def centerSystem(self):
-        self.star.setPos(Window.width/2-128, Window.height/2-128)
-    """
+    # def centerSystem(self):
+    #     self.star.setPos(Window.width/2-128, Window.height/2-128)

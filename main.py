@@ -29,11 +29,11 @@ from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
 Window.clearcolor = (0,0,0,1.0) #this fixes drawing issues on some phones
 
-LabelBase.register(name="astron boy",  
-                   fn_regular="./assets/astron boy.ttf")
+LabelBase.register(name='astron boy',  
+                   fn_regular='./assets/astron boy.ttf')
 
-LabelBase.register(name="joystix monospace",  
-                   fn_regular="./assets/joystix monospace.ttf")
+LabelBase.register(name='joystix monospace',  
+                   fn_regular='./assets/joystix monospace.ttf')
 
 sound = SoundLoader.load('./assets/wikiverseTune.wav')
  
@@ -49,7 +49,6 @@ class Game(Widget):
         self.system = System('Macalester College')
         self.collider = Collider()
         self.player = Spaceship()
-        #self.player.setPos(Window.width/4, Window.height/4)
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
@@ -69,8 +68,6 @@ class Game(Widget):
         self.player.update(dt)
         self.system.update(dt)
         self.controller.update(dt)
-        #self.system.centerSystem()
-        #self.parent.parent.scroll_to(self.player)
 
     def remake_system(self, title = 'notta_page'):
         for planet in self.system.planets:
@@ -95,6 +92,7 @@ class MenuScreen(Screen):
     '''
     Opening menu screen
     '''
+    pass
 
 class GameScreen(Screen):
     '''
@@ -118,6 +116,10 @@ class GameScreen(Screen):
         #Window.show_cursor = False
         self.game.player.bind(pos=self.scroll_to_player_cb)
         Clock.schedule_once(self.bump, 0.0001)
+
+        self.endDestination = Label(pos = (Window.width/4-200, Window.height/4-200),
+            text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
+        self.floatlayout.add_widget(self.endDestination)
 
     def scroll_to_player_cb(self, player, pos):
         #self.game.x, self.game.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
@@ -155,11 +157,11 @@ class ClientApp(App):
     def build(self):
         ClientApp.screen_manager = ScreenManager()
 
-        ms = MenuScreen(name="menu_screen")
-        mcs = MissionControlScreen(name = "missioncontrol_screen")
-        gs = GameScreen(name="game_screen")
-        pts = PreTutorialScreen(name="pretutorial_screen")
-        ts = TutorialScreen(name="tutorial_screen")
+        ms = MenuScreen(name='menu_screen')
+        mcs = MissionControlScreen(name = 'missioncontrol_screen')
+        gs = GameScreen(name='game_screen')
+        pts = PreTutorialScreen(name='pretutorial_screen')
+        ts = TutorialScreen(name='tutorial_screen')
  
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
