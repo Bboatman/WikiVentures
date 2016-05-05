@@ -17,17 +17,19 @@ class Body(Collidable):
     size = NumericProperty(0)
     x = NumericProperty(0)
     y = NumericProperty(0)
+    imgPath = StringProperty("")
 
     def __init__(self, title, order, **kwargs):
         super(Body, self).__init__( **kwargs)
         self.theta = randrange(0, 360)
         self.magnitude = order * 100 + 100
-        self.speed = randrange(40, 41) * 150.0 / self.magnitude
-        
-        self.label = Label(text = title, pos = (self.center_x, self.center_y))
+        self.speed = randrange(38, 42) * 150.0 / self.magnitude
+        self.label = Label(text = title, size = (self.width-10, self.height/3), font_size = 10)
         self.add_widget(self.label)
+        pickAsset = randrange(1, 6)
+        self.imgPath = './assets/planet' + str(pickAsset) + '.png'
 
-        self.size = 50 
+        self.size = 90
 
     def update(self, starPos, dt):
         '''
@@ -47,21 +49,24 @@ class Body(Collidable):
     def setPos(self, xpos, ypos):
         self.x = xpos
         self.y = ypos
-        self.label.x = self.x
+        self.label.x = self.x - self.label.width/2
         self.label.y = self.y
 
 class Star(Collidable):
     size = NumericProperty(0)
     x = NumericProperty(0)
     y = NumericProperty(0)
+    imgPath = StringProperty('')
 
     def __init__(self, title, **kwargs):
         super(Star, self).__init__(**kwargs)
-        self.label = Label(text = '[color=ff3333]'+title+'[/color]', font_name = 'joystix monospace', markup = True)
+        self.label = Label(text = title, size = (self.width-10, self.height/3), font_size = 10)
         self.label.font_size = 30
-        self.label.pos = (self.center_x, self.center_y)
+        self.label.pos = (self.width/2-5, self.height/6)
         self.add_widget(self.label)
-        self.size = 256
+        self.size = 240
+        pickAsset = randrange(1, 4)
+        self.imgPath = './assets/sun' + str(pickAsset) + '.png'
 
     def setPos(self, xpos, ypos):
         self.x = xpos
