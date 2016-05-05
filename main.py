@@ -18,6 +18,7 @@ from kivy.graphics import Color, Rectangle
 from kivy.uix.button import Button
 from kivy.core.text import LabelBase
 from kivy.core.audio import SoundLoader
+from kivy.config import Config
 
 from spaceship import *
 from system import *
@@ -25,7 +26,6 @@ from controller import *
 from collider import Collider
 from music import *
 
-from kivy.config import Config
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
 Window.clearcolor = (0,0,0,1.0) #this fixes drawing issues on some phones
 
@@ -41,15 +41,17 @@ class Game(Widget):
     '''
     The main widget class that contains the game, the game loop and runs everything
     '''
+
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
-        self.source = 'Macalester College'
+        self.source = 'America'
         self.destination = 'Steve Jobs'
         self.path = [self.source]
-        self.system = System('Macalester College')
+        self.system = System(self.source)
         self.collider = Collider()
         self.player = Spaceship()
         self.add_widget(self.system.star)
+
         for planet in self.system.planets:
             self.add_widget(planet)
 
@@ -65,6 +67,7 @@ class Game(Widget):
         All of the game logic has its origin here
         dt - The change in time between updates of the game logic
         '''
+        
         self.player.update(dt)
         self.system.update(dt)
         self.controller.update(dt)
