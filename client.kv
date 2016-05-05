@@ -38,6 +38,13 @@
             size: (self.size, self.size)
             source: './assets/spaceship_moving.gif'
 
+<Trail>:
+    size: 5, 5
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: (5, 5)
+
 <OptionsPopup>
     title: 'Options'
     size_hint: 0.75, 0.75

@@ -23,9 +23,9 @@ class Body(Collidable):
     def __init__(self, title, order, **kwargs):
         super(Body, self).__init__( **kwargs)
         self.theta = randrange(0, 360)
-        self.magnitude = order * 100 + 100
+        self.magnitude = order * 100 + 150
         self.speed = randrange(40, 41) * 150.0 / self.magnitude
-        self.label = Label(text = title.replace(' ', '\n'), size = (self.width, self.height/4), font_size = 12)
+        self.label = Label(text = title, size = (self.width, self.height/4), font_size = 12)
         self.add_widget(self.label)
         pickAsset = randrange(1, 6)
         self.imgPath = './assets/planet' + str(pickAsset) + '.png'
