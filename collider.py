@@ -13,11 +13,12 @@ class Collider(Widget):
         if instance.parent:
             #self.magnitude = order * 100 + 100
             player_magnitude = math.sqrt((instance.parent.system.star.center_x - instance.x) ** 2 + (instance.parent.system.star.center_y  - instance.y) ** 2)
-            approx_index = math.floor(player_magnitude/150) - 1
+            approx_index = math.floor(player_magnitude/100) - 1
             approx_index = int(approx_index if approx_index > 0 else 0)
             less = int(approx_index - 1 if approx_index > 0 else 0)
             more = int(approx_index + 1 if (approx_index + 1) < len(instance.parent.system.planets) else len(instance.parent.system.planets) - 1)
             index_range = [less, approx_index, more]
+            print("Near Planets: " + instance.parent.system.planets[index_range[0]].label.text + ', ' + instance.parent.system.planets[index_range[1]].label.text + ', ' + instance.parent.system.planets[index_range[2]].label.text)
             for i in index_range:
                 try:
                     if self.did_collide(instance, instance.parent.system.planets[i]):
@@ -25,7 +26,8 @@ class Collider(Widget):
                         instance.parent.system.planets[i].on_collide(instance)
                         break
                 except IndexError:
-                    instance.setPos(instance.parent.width/2, instance.parent.height/2)
+                    if i == approx_index:
+                        instance.setPos(instance.parent.width/2, instance.parent.height/2)
 
     def did_collide(self, widA, widB):
         if widA is widB:
