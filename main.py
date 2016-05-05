@@ -31,7 +31,6 @@ from spaceship import *
 from system import *
 from controller import *
 from collider import Collider
-from music import *
 
 Config.set('graphics','resizable',0) #don't make the app re-sizeable
 Window.clearcolor = (0,0,0,1.0) #this fixes drawing issues on some phones

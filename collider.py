@@ -25,7 +25,7 @@ class Collider(Widget):
                         instance.parent.system.planets[i].on_collide(instance)
                         break
                 except IndexError:
-                    pass
+                    instance.setPos(instance.parent.width/2, instance.parent.height/2)
 
     def did_collide(self, widA, widB):
         if widA is widB:
