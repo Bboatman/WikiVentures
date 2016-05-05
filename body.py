@@ -24,7 +24,7 @@ class Body(Collidable):
         self.theta = randrange(0, 360)
         self.magnitude = order * 100 + 100
         self.speed = randrange(38, 42) * 150.0 / self.magnitude
-        self.label = Label(text = title, size = (self.width, self.height/4), font_size = 12)
+        self.label = Label(text = title, size = (self.width-10, self.height/3), font_size = 10)
         self.add_widget(self.label)
         pickAsset = randrange(1, 6)
         self.imgPath = './assets/planet' + str(pickAsset) + '.png'
@@ -60,9 +60,9 @@ class Star(Collidable):
 
     def __init__(self, title, **kwargs):
         super(Star, self).__init__(**kwargs)
-        self.label = Label(text = '[color=ff3333]'+title+'[/color]', font_name = 'joystix monospace', markup = True)
+        self.label = Label(text = title, size = (self.width-10, self.height/3), font_size = 10)
         self.label.font_size = 30
-        self.label.pos = (self.center_x, self.center_y)
+        self.label.pos = (self.width/2-5, self.height/6)
         self.add_widget(self.label)
         self.size = 240
         pickAsset = randrange(1, 4)

@@ -10,6 +10,10 @@
             source: self.imgPath
             Color: 
                 rgb: (255, 255, 255)
+    Label:
+        text_size: self.size
+        halign: 'center'
+        valign: 'middle'
 
 <Body>:
     size: 50, 50
@@ -20,15 +24,11 @@
             source: self.imgPath
             Color: 
                 rgb: (255, 255, 255)
+    Label:
+        text_size: self.size
+        halign: 'center'
+        valign: 'middle'
 
-
-<Enemy>:
-    size: 32,32
-    canvas:
-        Rectangle:
-            pos: (self.x, self.y)
-            size: (self.size, self.size)
-            source: './assets/spaceChicken.png'
 
 <Spaceship>:
     size: 64, 64
@@ -36,7 +36,7 @@
         Rectangle:
             pos: (self.x, self.y)
             size: (self.size, self.size)
-            source: './assets/spaceship_moving.gif'
+            source: './assets/spaceship.png'
 
 <Trail>:
     size: 5, 5

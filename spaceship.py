@@ -65,7 +65,7 @@ class Trail(Widget):
     expired = BooleanProperty(False)
     def __init__(self, **kwargs):
         super(Trail, self).__init__(**kwargs)
-        Clock.schedule_once(self.expire, 1.3)
+        Clock.schedule_once(self.expire, 1.2)
         self.bind(expired= self.clean_up_self_cb)
     def expire(self, dt):
         self.expired = True
