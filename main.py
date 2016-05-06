@@ -230,11 +230,6 @@ class ClientApp(App):
         if sound:
             sound.play()
 
-        #parent = Widget() #this is an empty holder for buttons, etc
-        #app = Game()        
-        #Start the game clock (runs update function once every (1/60) seconds
-        #Clock.schedule_interval(app.update, 1.0/60.0) 
-        #parent.add_widget(app) #use this hierarchy to make it easy to deal w/buttons
         return self.screen_manager
 
 def set_tutorial_mode(instance, value):
