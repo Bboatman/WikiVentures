@@ -164,9 +164,9 @@ class GameScreen(Screen):
             Clock.schedule_once(self.bump, 0.0001)
 
         self.endDestination = Label(pos=(Window.width/4-200, Window.height/4-200),
-            text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
+            text = 'Find your way to the\n"'+self.game.destination+'" wiki system, Cadet.')
         self.floatlayout.add_widget(self.endDestination)
-
+            
         self.page_summary_popup = PageSummaryPopup(
             title=self.game.system.title,
             content=Label(text=self.game.system.summary, text_size=(400, None)),
@@ -199,7 +199,7 @@ class PageSummaryPopup(Popup):
         self.page = page
         self.title = self.page.title
         self.content = Label(text="This is a summary")
-'''
+    '''
 
 class PreTutorialScreen(Screen):
     '''
