@@ -65,11 +65,13 @@ class Game(Widget):
 
         Clock.schedule_interval(self.update, 1.0/60.0)
 
-    def noDisambigPage(self):
+    def noDisambigPage(self, possiblePage):
         try:
-            return random_page()
-        except DisambiguationError:
-            return noDisambigPage()
+            return possiblePage
+        except DisambiguationError, disambig:
+            strList = str(disambig)
+            optionArr = strList.split("\n")
+            return wiki_page(optionArr[1])
 
     def set_gamemode(self):
         global page
@@ -78,8 +80,8 @@ class Game(Widget):
             self.destination = 'Jesus'
             page = dummy_page
         else:
-            self.source = self.noDisambigPage()
-            self.destination = self.noDisambigPage()
+            self.source = self.noDisambigPage(random_page())
+            self.destination = self.noDisambigPage(random_page())
             page = wiki_page
  
     def update(self,dt):
@@ -104,14 +106,15 @@ class Game(Widget):
         elif title == self.destination:
             self.parent.parent.parent.parent.current = 'winning_screen'
         else:
-            self.system = System(page(title))
+            newPage = self.noDisambigPage(page(title))
+            self.system = System(newPage)
             self.parent.page_summary_popup = PageSummaryPopup()
             self.path.append(title)       
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
         self.system.star.setPos(self.parent.parent.width/2, self.parent.parent.height/2)
-        self.player.pos = self.system.star.pos
+        self.player.pos = self.parent.parent.width/2 +5, self.parent.parent.height/2
 
 
 class MenuScreen(Screen):
