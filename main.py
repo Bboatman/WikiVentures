@@ -77,14 +77,14 @@ class Game(Widget):
         else:
             try:
                 self.source = random_page()
-            except DisambiguationError, disambig:
+            except DisambiguationError as disambig:
                 strList = str(disambig)
                 optionArr = strList.split("\n")
                 self.source = wiki_page(optionArr[1])
 
             try:
                 self.destination = random_page()
-            except DisambiguationError, disambig:
+            except DisambiguationError as disambig:
                 strList = str(disambig)
                 optionArr = strList.split("\n")
                 self.destination = wiki_page(optionArr[1])
@@ -115,7 +115,7 @@ class Game(Widget):
         else:
             try:
                 newPage = page(title)
-            except DisambiguationError, disambig:
+            except DisambiguationError as disambig:
                 strList = str(disambig)
                 optionArr = strList.split("\n")
                 newPage = page(optionArr[1])
