@@ -24,6 +24,7 @@ from functools import partial
 from wikipedia import page as wiki_page
 from testPages import page as dummy_page
 from wikipedia import random as random_page
+from wikipedia import DisambiguationError
 
 from spaceship import *
 from system import *
@@ -65,6 +66,8 @@ class Game(Widget):
 
         Clock.schedule_interval(self.update, 1.0/60.0)
 
+
+
     def set_gamemode(self):
         global page
         if tutorial_mode:
@@ -72,10 +75,21 @@ class Game(Widget):
             self.destination = 'Jesus'
             page = dummy_page
         else:
-            self.source = random_page()
-            self.destination = random_page()
-            page = wiki_page
+            try:
+                self.source = random_page()
+            except DisambiguationError, disambig:
+                strList = str(disambig)
+                optionArr = strList.split("\n")
+                self.source = wiki_page(optionArr[1])
 
+            try:
+                self.destination = random_page()
+            except DisambiguationError, disambig:
+                strList = str(disambig)
+                optionArr = strList.split("\n")
+                self.destination = wiki_page(optionArr[1])
+            page = wiki_page
+ 
  
     def update(self,dt):
         '''
@@ -99,7 +113,13 @@ class Game(Widget):
         elif title == self.destination:
             self.parent.parent.parent.parent.current = 'winning_screen'
         else:
-            self.system = System(page(title))
+            try:
+                newPage = page(title)
+            except DisambiguationError, disambig:
+                strList = str(disambig)
+                optionArr = strList.split("\n")
+                newPage = page(optionArr[1])
+            self.system = System(newPage)
             self.parent.page_summary_popup = PageSummaryPopup()
             self.path.append(title)       
         self.add_widget(self.system.star)
@@ -241,11 +261,6 @@ class ClientApp(App):
         # if sound:
         #     sound.play()
 
-        #parent = Widget() #this is an empty holder for buttons, etc
-        #app = Game()        
-        #Start the game clock (runs update function once every (1/60) seconds
-        #Clock.schedule_interval(app.update, 1.0/60.0) 
-        #parent.add_widget(app) #use this hierarchy to make it easy to deal w/buttons
         return self.screen_manager
 
 def set_tutorial_mode(instance, value):

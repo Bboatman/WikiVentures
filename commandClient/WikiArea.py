@@ -11,5 +11,3 @@ class WikiArea():
 
 	def getChildren(self):
 		return self.page.links
-
-	def update(self):
