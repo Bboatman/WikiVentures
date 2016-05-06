@@ -175,11 +175,10 @@ class GameScreen(Screen):
             self.game.player.bind(pos=self.scroll_to_player_cb)
             Clock.schedule_once(self.bump, 0.0001)
 
-        self.endDestination = Label(
-            pos=(Window.width/4-200, Window.height/4-200),
-            text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
+        self.endDestination = Label(pos=(Window.width/4-200, Window.height/4-200),
+            text = 'Find your way to the\n"'+self.game.destination+'" wiki system, Cadet.')
         self.floatlayout.add_widget(self.endDestination)
-
+            
         self.page_summary_popup = PageSummaryPopup(
             title=self.game.system.title,
             content=Label(text=self.game.system.summary, text_size=(400, None)),
@@ -212,7 +211,7 @@ class PageSummaryPopup(Popup):
         self.page = page
         self.title = self.page.title
         self.content = Label(text="This is a summary")
-'''
+    '''
 
 class PreTutorialScreen(Screen):
     '''
@@ -236,9 +235,14 @@ class WinningScreen(Screen):
     '''
     Winning screen displays when you reach the destination page
     '''
-
     pass
 
+class TutorialMissionControlScreen(Screen):
+    '''
+    Mission Control for tutorial mode
+    '''
+    pass
+        
 class ClientApp(App):
     screen_manager = ObjectProperty(None)
     ''' 
@@ -250,12 +254,12 @@ class ClientApp(App):
         self.screen_manager.bind(current = set_tutorial_mode)
 
         ms = MenuScreen(name='menu_screen')
-        mcs = MissionControlScreen(name = 'missioncontrol_screen')
+        mcs = MissionControlScreen(name = 'missionControl_screen')
         gs = GameScreen(name='game_screen')
         pts = PreTutorialScreen(name='pretutorial_screen')
         ts = TutorialScreen(name='tutorial_screen')
         ws = WinningScreen(name='winning_screen')
-
+        tms = TutorialMissionControlScreen(name='tutorialMissionControl_screen')
  
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
@@ -263,6 +267,7 @@ class ClientApp(App):
         self.screen_manager.add_widget(gs)
         self.screen_manager.add_widget(mcs)
         self.screen_manager.add_widget(ws)
+        self.screen_manager.add_widget(tms)
         
         sound.loop = True
         if sound:
