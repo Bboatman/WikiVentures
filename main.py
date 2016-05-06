@@ -24,6 +24,7 @@ from functools import partial
 from wikipedia import page as wiki_page
 from testPages import page as dummy_page
 from wikipedia import random as random_page
+from wikipedia import DisambiguationError
 
 from spaceship import *
 from system import *
@@ -65,13 +66,7 @@ class Game(Widget):
 
         Clock.schedule_interval(self.update, 1.0/60.0)
 
-    def noDisambigPage(self, possiblePage):
-        try:
-            return possiblePage
-        except DisambiguationError, disambig:
-            strList = str(disambig)
-            optionArr = strList.split("\n")
-            return wiki_page(optionArr[1])
+
 
     def set_gamemode(self):
         global page
@@ -80,9 +75,21 @@ class Game(Widget):
             self.destination = 'Jesus'
             page = dummy_page
         else:
-            self.source = self.noDisambigPage(random_page())
-            self.destination = self.noDisambigPage(random_page())
+            try:
+                self.source = random_page()
+            except DisambiguationError, disambig:
+                strList = str(disambig)
+                optionArr = strList.split("\n")
+                self.source = wiki_page(optionArr[1])
+
+            try:
+                self.destination = random_page()
+            except DisambiguationError, disambig:
+                strList = str(disambig)
+                optionArr = strList.split("\n")
+                self.destination = wiki_page(optionArr[1])
             page = wiki_page
+ 
  
     def update(self,dt):
         '''
@@ -106,7 +113,12 @@ class Game(Widget):
         elif title == self.destination:
             self.parent.parent.parent.parent.current = 'winning_screen'
         else:
-            newPage = self.noDisambigPage(page(title))
+            try:
+                newPage = page(title)
+            except DisambiguationError, disambig:
+                strList = str(disambig)
+                optionArr = strList.split("\n")
+                newPage = page(optionArr[1])
             self.system = System(newPage)
             self.parent.page_summary_popup = PageSummaryPopup()
             self.path.append(title)       
@@ -114,7 +126,7 @@ class Game(Widget):
         for planet in self.system.planets:
             self.add_widget(planet)
         self.system.star.setPos(self.parent.parent.width/2, self.parent.parent.height/2)
-        self.player.pos = self.parent.parent.width/2 +5, self.parent.parent.height/2
+        self.player.pos = self.system.star.pos
 
 
 class MenuScreen(Screen):
