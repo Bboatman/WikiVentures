@@ -103,6 +103,7 @@ class Game(Widget):
         self.controller.update(dt)
 
     def remake_system(self, title = 'notta_page'):
+        self.parent.remove_widget(self.parent.parent.parent.page_summary_button)
         for planet in self.system.planets:
             self.remove_widget(planet)
         self.remove_widget(self.system.star)
@@ -120,13 +121,25 @@ class Game(Widget):
                 optionArr = strList.split("\n")
                 newPage = page(optionArr[1])
             self.system = System(newPage)
-            self.parent.page_summary_popup = PageSummaryPopup()
             self.path.append(title)       
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
         self.system.star.setPos(self.parent.parent.width/2, self.parent.parent.height/2)
         self.player.pos = self.system.star.pos
+
+        page_summary = self.system.summary.split('\n')
+        self.parent.parent.parent.page_summary_popup = PageSummaryPopup(
+            title=self.system.title,
+            content=Label(text=page_summary[0], text_size=(400, None)),
+            size_hint=(None, None),
+            size=(450, 450))
+        self.parent.parent.parent.page_summary_button = Button(
+            size_hint=(0.0025, 0.0005),
+            pos=(self.parent.parent.parent.scrollview.size[0]/2+100, self.parent.parent.parent.scrollview.size[1]/2-40),
+            text='page summary')
+        self.parent.parent.parent.page_summary_button.bind(on_press=self.parent.parent.parent.page_summary_popup .open)
+        self.parent.add_widget(self.parent.parent.parent.page_summary_button)
 
 
 class MenuScreen(Screen):
@@ -163,11 +176,10 @@ class GameScreen(Screen):
             self.game.player.bind(pos=self.scroll_to_player_cb)
             Clock.schedule_once(self.bump, 0.0001)
 
-        self.endDestination = Label(
-            pos=(Window.width/4-200, Window.height/4-200),
-            text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
+        self.endDestination = Label(pos=(Window.width/4-200, Window.height/4-200),
+            text = 'Find your way to the\n"'+self.game.destination+'" wiki system, Cadet.')
         self.floatlayout.add_widget(self.endDestination)
-
+            
         self.page_summary_popup = PageSummaryPopup(
             title=self.game.system.title,
             content=Label(text=self.game.system.summary, text_size=(400, None)),
@@ -200,7 +212,7 @@ class PageSummaryPopup(Popup):
         self.page = page
         self.title = self.page.title
         self.content = Label(text="This is a summary")
-'''
+    '''
 
 class PreTutorialScreen(Screen):
     '''
@@ -224,9 +236,14 @@ class WinningScreen(Screen):
     '''
     Winning screen displays when you reach the destination page
     '''
-
     pass
 
+class TutorialMissionControlScreen(Screen):
+    '''
+    Mission Control for tutorial mode
+    '''
+    pass
+        
 class ClientApp(App):
     screen_manager = ObjectProperty(None)
     ''' 
@@ -238,12 +255,12 @@ class ClientApp(App):
         self.screen_manager.bind(current = set_tutorial_mode)
 
         ms = MenuScreen(name='menu_screen')
-        mcs = MissionControlScreen(name = 'missioncontrol_screen')
+        mcs = MissionControlScreen(name = 'missionControl_screen')
         gs = GameScreen(name='game_screen')
         pts = PreTutorialScreen(name='pretutorial_screen')
         ts = TutorialScreen(name='tutorial_screen')
         ws = WinningScreen(name='winning_screen')
-
+        tms = TutorialMissionControlScreen(name='tutorialMissionControl_screen')
  
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
@@ -251,6 +268,7 @@ class ClientApp(App):
         self.screen_manager.add_widget(gs)
         self.screen_manager.add_widget(mcs)
         self.screen_manager.add_widget(ws)
+        self.screen_manager.add_widget(tms)
         
         sound.loop = True
         if sound:
