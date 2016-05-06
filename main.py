@@ -68,6 +68,12 @@ class Game(Widget):
 
         Clock.schedule_interval(self.update, 1.0/60.0)
 
+    def noDisambigPage(self):
+        try:
+            return random_page()
+        except DisambiguationError:
+            return noDisambigPage()
+
     def set_gamemode(self):
         global page
         if tutorial_mode:
@@ -75,10 +81,9 @@ class Game(Widget):
             self.destination = 'Jesus'
             page = dummy_page
         else:
-            self.source = random_page()
-            self.destination = random_page()
+            self.source = self.noDisambigPage()
+            self.destination = self.noDisambigPage()
             page = wiki_page
-
  
     def update(self,dt):
         '''
