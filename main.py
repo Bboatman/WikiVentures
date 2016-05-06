@@ -26,6 +26,7 @@ from testPages import page as dummy_page
 from wikipedia import random as random_page
 from wikipedia import DisambiguationError
 
+from random import sample
 from spaceship import *
 from system import *
 from controller import *
@@ -75,20 +76,17 @@ class Game(Widget):
             self.destination = 'Jesus'
             page = dummy_page
         else:
+            page = wiki_page
             try:
                 self.source = random_page()
+                page(self.source)
             except DisambiguationError as disambig:
                 strList = str(disambig)
                 optionArr = strList.split("\n")
                 self.source = wiki_page(optionArr[1])
 
-            try:
-                self.destination = random_page()
-            except DisambiguationError as disambig:
-                strList = str(disambig)
-                optionArr = strList.split("\n")
-                self.destination = wiki_page(optionArr[1])
-            page = wiki_page
+            self.destination = sample(['Jesus', 'Kevin Bacon', 'Hitler', 'Prince (musician)', 'Game of Thrones', 'Computer science', 'Horse', 'United States', 'Marlon Brando', 'Murder', 'Wiki', 'Facebook', 'SpaceX', 'NASA'], 1)[0]
+           
  
  
     def update(self,dt):
