@@ -162,7 +162,7 @@
 				text_size: root.width, None
 				size: self.texture_size
 				font_name: 'joystix monospace'
-				text: "Here's a quick run down of this spacecraft. You can use arrow keys or 'wasd' keys to control your spacecraft's movements. For quick interplanetary travel, fly to a planet and press 'k', activating hypertext speed to explore a new wiki system within the Wikiverse. Need to travel back? No problem, press 'j' and the spacecraft will warp back to the previous system. You'll receive a mission soon. That's all for now, Cadet!"
+				text: "Alright, Cadet. We're going to put you through a quick flight simulation to get you comfortable with the controls. There'll be a quick run down of this spacecraft. Afterwards, you'll receive a mission. That's all for now, Cadet! You can use arrow keys or 'wasd' keys to control your spacecraft's movements. For quick interplanetary travel, fly to a planet and press 'k', activating hypertext speed to explore a new wiki system within the Wikiverse. Need to travel back? No problem, press 'j' and the spacecraft will warp back to the previous system."
 				valign: 'bottom'
 				halign: 'center'
 				font_size: 12
@@ -177,7 +177,7 @@
 				size_hint: (0.75, 1)
 				font_size: 12
 				text: "Thanks, Captain.\n I'm ready for take off!"
-				on_press: root.manager.current = 'missioncontrol_screen'
+				on_press: root.manager.current = 'tutorialMissionControl_screen'
 
 <MissionControlScreen>
 	AnchorLayout:
@@ -208,6 +208,37 @@
 				font_size: 12
 				halign: 'center'
 				on_press: root.manager.current = 'game_screen'
+
+
+<TutorialMissionControlScreen>
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        size_hint_y: 0.6
+
+        BoxLayout:
+            size_hint: 0.5, 0.5
+            orientation: 'vertical'
+            spacing: 10
+
+            Label:
+                text_size: root.width, None
+                size: self.texture_size
+                font_name: 'joystix monospace'
+                text: "Let's start the simulation! Unknown alien activity has been spotted in the 'Jesus' wiki system. Travel to various planets and wiki systems within the Wikiverse. Hint: The more relevant the title of a planet is to your destination, the faster you'll find it."
+                valign: 'middle'
+                halign: 'center'
+                font_size: 12
+                padding: 10, 10
+
+            Button:
+                text_size: root.width, None
+                size: self.texture_size
+                font_name: 'joystix monospace'
+                text: "Understood. I'll do my best, Captain!"
+                font_size: 12
+                halign: 'center'
+                on_press: root.manager.current = 'game_screen'
 
 
 <WinningScreen>:
