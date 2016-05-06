@@ -257,9 +257,9 @@ class ClientApp(App):
         self.screen_manager.add_widget(ws)
         self.screen_manager.add_widget(tms)
         
-        # sound.loop = True
-        # if sound:
-        #     sound.play()
+        sound.loop = True
+        if sound:
+            sound.play()
 
         return self.screen_manager
 
