@@ -126,7 +126,9 @@ class Game(Widget):
         for planet in self.system.planets:
             self.add_widget(planet)
         self.system.star.setPos(self.parent.parent.width/2, self.parent.parent.height/2)
-        self.player.pos = self.system.star.pos
+        self.player.v_x = 0
+        self.player.v_y = 0
+        self.player.setPos(self.parent.parent.width/2 - 50, self.parent.parent.height/2 - 50)
 
         page_summary = self.system.summary.split('\n')
         self.parent.parent.parent.page_summary_popup = PageSummaryPopup(
