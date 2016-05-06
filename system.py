@@ -7,6 +7,7 @@ class System(object):
     def __init__(self, page):
         self.page = page
         self.title = page.title
+        self.summary = page.summary
         self.star = Star(page.title)
         planet_names = page.links
         shuffle(planet_names)

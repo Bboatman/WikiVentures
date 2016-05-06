@@ -10,20 +10,17 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.graphics import Rectangle
-from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import AsyncImage
 from kivy.graphics import Color, Rectangle
 from kivy.uix.button import Button
 from kivy.core.text import LabelBase
 from kivy.core.audio import SoundLoader
 from kivy.config import Config
+from functools import partial
 
-'''
-Normally 'from wikipedia import page' should be uncommented, but
-for the demo we're using from testPages import page instead
-'''
 from wikipedia import page as wiki_page
 from testPages import page as dummy_page
 from wikipedia import random as random_page
@@ -105,12 +102,10 @@ class Game(Widget):
             self.system = System(page(self.path[jump_back]))
             if jump_back < -1: self.path.pop(-1)
         elif title == self.destination:
-            '''
-            The game widget's greatx2 grandparent is the Screen manager.
-            '''
             self.parent.parent.parent.parent.current = 'winning_screen'
         else:
-            self.system = System(page(title)) 
+            self.system = System(page(title))
+            self.parent.page_summary_popup = PageSummaryPopup()
             self.path.append(title)       
         self.add_widget(self.system.star)
         for planet in self.system.planets:
@@ -153,9 +148,23 @@ class GameScreen(Screen):
             self.game.player.bind(pos=self.scroll_to_player_cb)
             Clock.schedule_once(self.bump, 0.0001)
 
-        self.endDestination = Label(pos = (Window.width/4-200, Window.height/4-200),
+        self.endDestination = Label(
+            pos=(Window.width/4-200, Window.height/4-200),
             text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
         self.floatlayout.add_widget(self.endDestination)
+
+        self.page_summary_popup = PageSummaryPopup(
+            title=self.game.system.title,
+            content=Label(text=self.game.system.summary, text_size=(400, None)),
+            size_hint=(None, None),
+            size=(450, 450))
+
+        self.page_summary_button = Button(
+            size_hint=(0.0025, 0.0005),
+            pos=(self.scrollview.size[0]/2+100, self.scrollview.size[1]/2-40),
+            text='page summary')
+        self.page_summary_button.bind(on_press=self.page_summary_popup.open)
+        self.floatlayout.add_widget(self.page_summary_button)
 
     def scroll_to_player_cb(self, player, pos):
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
@@ -167,14 +176,16 @@ class GameScreen(Screen):
         '''
         self.game.player.x += 1
 
-    page_summary_popup = ObjectProperty(None)
-
-    def show_page_summary(self):
-        self.page_summary_popup = PageSummaryPopup()
-        self.page_summary_popup.open()
 
 class PageSummaryPopup(Popup):
     pass
+    '''
+    def __init__(self, page, **kwargs):
+        #super(PageSummary, self).__init__( **kwargs)
+        self.page = page
+        self.title = self.page.title
+        self.content = Label(text="This is a summary")
+'''
 
 class PreTutorialScreen(Screen):
     '''
