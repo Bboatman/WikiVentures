@@ -103,6 +103,7 @@ class Game(Widget):
         self.controller.update(dt)
 
     def remake_system(self, title = 'notta_page'):
+        self.parent.remove_widget(self.parent.parent.parent.page_summary_button)
         for planet in self.system.planets:
             self.remove_widget(planet)
         self.remove_widget(self.system.star)
@@ -120,13 +121,24 @@ class Game(Widget):
                 optionArr = strList.split("\n")
                 newPage = page(optionArr[1])
             self.system = System(newPage)
-            self.parent.page_summary_popup = PageSummaryPopup()
             self.path.append(title)       
         self.add_widget(self.system.star)
         for planet in self.system.planets:
             self.add_widget(planet)
         self.system.star.setPos(self.parent.parent.width/2, self.parent.parent.height/2)
         self.player.pos = self.system.star.pos
+
+        self.parent.parent.parent.page_summary_popup = PageSummaryPopup(
+            title=self.system.title,
+            content=Label(text=self.system.summary, text_size=(400, None)),
+            size_hint=(None, None),
+            size=(450, 450))
+        self.parent.parent.parent.page_summary_button = Button(
+            size_hint=(0.0025, 0.0005),
+            pos=(self.parent.parent.parent.scrollview.size[0]/2+100, self.parent.parent.parent.scrollview.size[1]/2-40),
+            text='page summary')
+        self.parent.parent.parent.page_summary_button.bind(on_press=self.parent.parent.parent.page_summary_popup .open)
+        self.parent.add_widget(self.parent.parent.parent.page_summary_button)
 
 
 class MenuScreen(Screen):
