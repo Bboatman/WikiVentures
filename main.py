@@ -128,9 +128,10 @@ class Game(Widget):
         self.system.star.setPos(self.parent.parent.width/2, self.parent.parent.height/2)
         self.player.pos = self.system.star.pos
 
+        page_summary = self.system.summary.split('\n')
         self.parent.parent.parent.page_summary_popup = PageSummaryPopup(
             title=self.system.title,
-            content=Label(text=self.system.summary, text_size=(400, None)),
+            content=Label(text=page_summary[0], text_size=(400, None)),
             size_hint=(None, None),
             size=(450, 450))
         self.parent.parent.parent.page_summary_button = Button(
