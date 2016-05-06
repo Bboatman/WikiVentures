@@ -24,8 +24,9 @@ from kivy.config import Config
 Normally 'from wikipedia import page' should be uncommented, but
 for the demo we're using from testPages import page instead
 '''
-#from wikipedia import page
-from testPages import page
+from wikipedia import page as wiki_page
+from testPages import page as dummy_page
+from wikipedia import random as random_page
 
 from spaceship import *
 from system import *
@@ -42,7 +43,9 @@ LabelBase.register(name='joystix monospace',
                    fn_regular='./assets/joystix monospace.ttf')
 
 sound = SoundLoader.load('./assets/wikiverseTune.wav')
+tutorial_mode = False
  
+
 class Game(Widget):
     '''
     The main widget class that contains the game, the game loop and runs everything
@@ -50,8 +53,7 @@ class Game(Widget):
 
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
-        self.source = 'Pickled Cucumber'
-        self.destination = 'Jesus'
+        self.set_gamemode()
         self.path = [self.source]
         self.system = System(page(self.source))
         self.collider = Collider()
@@ -65,6 +67,17 @@ class Game(Widget):
         self.add_widget(self.player)
 
         Clock.schedule_interval(self.update, 1.0/60.0)
+
+    def set_gamemode(self):
+        global page
+        if tutorial_mode:
+            self.source = 'Pickled Cucumber'
+            self.destination = 'Jesus'
+            page = dummy_page
+        else:
+            self.source = random_page()
+            self.destination = random_page()
+            page = wiki_page
 
  
     def update(self,dt):
@@ -113,8 +126,10 @@ class GameScreen(Screen):
     '''
     def on_enter(self):
         try:
+            self.game.set_gamemode()
             self.game.remake_system(self.game.source)
             self.game.path = [self.game.source]
+            self.floatlayout.remove_widget(self.endDestination)
         except AttributeError:
             self.game = Game()
             self.scrollview = ScrollView(
@@ -133,9 +148,9 @@ class GameScreen(Screen):
             self.game.player.bind(pos=self.scroll_to_player_cb)
             Clock.schedule_once(self.bump, 0.0001)
 
-            self.endDestination = Label(pos = (Window.width/4-200, Window.height/4-200),
-                text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
-            self.floatlayout.add_widget(self.endDestination)
+        self.endDestination = Label(pos = (Window.width/4-200, Window.height/4-200),
+            text = 'Find your way to the\n"'+self.game.destination+'"\n wiki system, Cadet.')
+        self.floatlayout.add_widget(self.endDestination)
 
     def scroll_to_player_cb(self, player, pos):
         self.scrollview.x, self.scrollview.y = -(player.x - Window.width/2), -(player.y - Window.height/2)
@@ -189,6 +204,7 @@ class ClientApp(App):
     '''
     def build(self):
         ClientApp.screen_manager = ScreenManager()
+        self.screen_manager.bind(current = set_tutorial_mode)
 
         ms = MenuScreen(name='menu_screen')
         mcs = MissionControlScreen(name = 'missioncontrol_screen')
@@ -196,6 +212,7 @@ class ClientApp(App):
         pts = PreTutorialScreen(name='pretutorial_screen')
         ts = TutorialScreen(name='tutorial_screen')
         ws = WinningScreen(name='winning_screen')
+
  
         self.screen_manager.add_widget(ms)
         self.screen_manager.add_widget(pts)
@@ -214,6 +231,15 @@ class ClientApp(App):
         #Clock.schedule_interval(app.update, 1.0/60.0) 
         #parent.add_widget(app) #use this hierarchy to make it easy to deal w/buttons
         return self.screen_manager
+
+def set_tutorial_mode(instance, value):
+    global tutorial_mode
+    if value == 'tutorial_screen':
+        tutorial_mode = True
+    elif value == 'missioncontrol_screen' and not tutorial_mode:
+        tutorial_mode = False
+    elif value == 'menu_screen':
+        tutorial_mode = False
 
 if __name__ == '__main__' :
     ClientApp().run()
